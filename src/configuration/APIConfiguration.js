@@ -5,16 +5,6 @@
  */
 module.exports = {
   /**
-   * The HTTP scheme, HTTP as default
-   */
-  scheme: 'http',
-
-  /**
-   * The Netdeal API endpoint
-   */
-  endpoint: 'www.netdeal.com.br',
-
-  /**
    * Your App ID (provided by Netdeal)
    *
    * @see http://www.netdeal.com.br/documentation/#authentication
@@ -27,6 +17,16 @@ module.exports = {
    * @see http://www.netdeal.com.br/documentation/#authentication
    */
   secretPass: '',
+
+  /**
+   * The HTTP scheme, HTTP as default
+   */
+  scheme: 'http',
+
+  /**
+   * The Netdeal API endpoint
+   */
+  endpoint: 'www.netdeal.com.br',
 
   /**
    * API Resources Configuration
