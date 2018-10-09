@@ -10,20 +10,24 @@ const APIConfiguration = require('./APIConfiguration.js');
  */
 class Configuration {
 
-  constructor() {
+  /**
+   * @param {string} appId Your App ID (provided by Netdeal)
+   * @param {string} secretPass Your Secret Pass (provided by Netdeal)
+   */
+  constructor(appId, secretPass) {
     /**
      * Your App ID (provided by Netdeal)
      *
      * @type {string}
      */
-    this._appId = '';
+    this._appId = appId;
 
     /**
      * Your Secret Pass (provided by Netdeal)
      *
      * @type {string}
      */
-    this._secretPass = '';
+    this._secretPass = secretPass;
 
     /**
      * API Configuration
