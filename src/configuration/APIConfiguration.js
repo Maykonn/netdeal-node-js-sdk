@@ -4,6 +4,7 @@
  * @type {{scheme: string, endpoint: string, appId: string, secretPass: string}}
  */
 module.exports = {
+
   /**
    * Your App ID (provided by Netdeal)
    *
@@ -48,4 +49,5 @@ module.exports = {
      */
     sendEntity: '/api/event/batch'
   }
+
 };
