@@ -1,3 +1,4 @@
+const ApiRequestHelper = require('./helper/ApiRequestHelper.js');
 const AccessTokenCache = require('./AccessTokenCache.js');
 
 class AccessToken {
@@ -26,10 +27,12 @@ class AccessToken {
   /**
    * Set the token and create the token cache
    *
-   * @param {string} token
+   * @param {string} value
    */
-  set token(token) {
-    this._cache.token = this._token = token;
+  set token(value) {
+    if (this._tokenIsValid(value)) {
+      this._cache.token = this._token = value;
+    }
   }
 
   /**
@@ -40,15 +43,14 @@ class AccessToken {
    * @return {string}
    */
   _requestToApi() {
-    const requestParams = {
-      appId: '',
-      secretPass: ''
-    };
+    const apiResponse = ApiRequestHelper.request(
+      'http',
+      'endpoint.com',
+      '/open/request-token',
+      {appId: '', secretPass: ''}
+    );
 
-
-
-    const parsedToken = this._parseTokenApiResponse(apiResponse);
-
+    return this._parseTokenApiResponse(apiResponse);
   }
 
   /**
@@ -61,6 +63,17 @@ class AccessToken {
    */
   _parseTokenApiResponse(apiResponse) {
     return '';
+  }
+
+  /**
+   * Validate the token
+   *
+   * @private
+   * @param {string} token
+   * @return {boolean}
+   */
+  _tokenIsValid(token) {
+    return (typeof token === 'string');
   }
 
 }
