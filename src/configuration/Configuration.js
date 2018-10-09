@@ -74,3 +74,5 @@ class Configuration {
     this._secretPass = value;
   }
 }
+
+module.exports = Configuration;
