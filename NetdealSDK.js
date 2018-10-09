@@ -1,27 +1,25 @@
+const AccessToken = require('./src/AccessToken.js');
+
 /**
  * Netdeal Node.js SDK
  *
  * @author Maykonn Welington Candido <maykonn@outlook.com> (http://github.com/maykonn)
- * @type {{Configuration, Consumer, ConsumersCollection, sendConsumer: function(Consumer), sendConsumers: function(ConsumersCollection)}}
+ * @type {{Configuration: Configuration, Consumer, ConsumersCollection, sendConsumer: function(Consumer), sendConsumers: function(ConsumersCollection)}}
  */
 module.exports = {
+
   Configuration: require('./src/configuration/Configuration.js'),
-  Consumer: require('./src/Consumer.js'),
-  ConsumersCollection: require('./src/ConsumersCollection.js'),
-  /**
-   * Send the consumer data to Netdeal
-   *
-   * @param {Consumer} consumer
-   */
-  sendConsumer: (consumer) => {
+  Lead: require('./src/entity/Lead.js'),
+  Consumer: require('./src/entity/Consumer.js'),
+  EntitiesCollection: require('./src/entity/EntitiesCollection.js'),
 
-  },
   /**
-   * Send a collection of consumers to Netdeal
+   * Send a collection of Consumers or Leads entities to Netdeal
    *
-   * @param {ConsumersCollection} consumers
+   * @param {EntitiesCollection} collection
    */
-  sendConsumers: (consumers) => {
-
+  sendEntities: (collection) => {
+    const accessToken = (new AccessToken(this.Configuration)).token;
   }
+
 };
