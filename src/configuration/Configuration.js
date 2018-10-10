@@ -1,7 +1,7 @@
 /**
  * Netdeal API Configuration
  *
- * @type {{scheme: string, endpoint: string, appId: string, secretPass: string}}
+ * @type {{appId: string, secretPass: string, service: {scheme: string, endpoint: string}, resources: {requestAccessToken: {method: string, path: string}, sendEntity: {method: string, path: string}}}}
  */
 const APIConfiguration = require('./APIConfiguration.js');
 
@@ -18,7 +18,7 @@ class Configuration {
     /**
      * API Configuration
      *
-     * @type {{scheme: string, endpoint: string, appId: string, secretPass: string}}
+     * @type {{appId: string, secretPass: string, service: {scheme: string, endpoint: string}, resources: {requestAccessToken: {method: string, path: string}, sendEntity: {method: string, path: string}}}}
      * @private
      */
     this._api = APIConfiguration;
@@ -77,12 +77,11 @@ class Configuration {
   /**
    * Retrieves the read only api configuration
    *
-   * @return {{scheme: string, endpoint: string, resources: {requestAccessToken: string, sendEntity: string}}}
+   * @return {{service: {scheme: string, endpoint: string}, resources: {requestAccessToken: {method: string, path: string}, sendEntity: {method: string, path: string}}}}
    */
   get api() {
     return {
-      scheme: this._api.scheme,
-      endpoint: this._api.endpoint,
+      service: this._api.service,
       resources: this._api.resources
     };
   }
