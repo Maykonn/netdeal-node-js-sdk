@@ -20,14 +20,19 @@ module.exports = {
   secretPass: '',
 
   /**
-   * The HTTP scheme, HTTP as default
+   * Configures the netdeal API service
    */
-  scheme: 'http',
+  service: {
+    /**
+     * The HTTP scheme, HTTP as default
+     */
+    scheme: 'http',
 
-  /**
-   * The Netdeal API endpoint
-   */
-  endpoint: 'www.netdeal.com.br',
+    /**
+     * The Netdeal API endpoint
+     */
+    endpoint: 'www.netdeal.com.br',
+  },
 
   /**
    * API Resources Configuration
