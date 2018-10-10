@@ -57,7 +57,7 @@ class AccessToken {
    * @return {string}
    */
   _requestTokenToApi() {
-    const Request = new AccessTokenHttpRequest(
+    const HttpRequest = new AccessTokenHttpRequest(
       this._configuration.api.service,
       this._configuration.api.resources.requestAccessToken,
       {
@@ -66,7 +66,7 @@ class AccessToken {
       }
     );
 
-    return this._parseTokenApiResponse(Request.dispatch());
+    return this._parseTokenApiResponse(HttpRequest.dispatch());
   }
 
   /**
