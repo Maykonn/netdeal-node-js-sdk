@@ -1,14 +1,35 @@
-const ApiRequestHelper = require('./helper/ApiRequestHelper.js');
+const Configuration = require('./configuration/Configuration.js');
 const AccessTokenCache = require('./AccessTokenCache.js');
+const AccessTokenHttpRequest = require('./http/request/AccessTokenHttpRequest.js')
 
 class AccessToken {
 
-  constructor() {
+  /**
+   * @param {Configuration} Configuration
+   */
+  constructor(Configuration) {
     /**
+     * SDK Configuration
+     *
+     * @type {Configuration}
+     * @private
+     */
+    this._configuration = Configuration;
+
+    /**
+     * Access token value
+     *
      * @type {string}
      * @private
      */
     this._token = '';
+
+    /**
+     * Access token cache
+     *
+     * @type {AccessTokenCache}
+     * @private
+     */
     this._cache = new AccessTokenCache();
   }
 
@@ -36,14 +57,16 @@ class AccessToken {
    * @return {string}
    */
   _requestTokenToApi() {
-    const apiResponse = ApiRequestHelper.request(
-      'http',
-      'endpoint.com',
-      '/open/request-token',
-      {appId: '', secretPass: ''}
+    const Request = new AccessTokenHttpRequest(
+      this._configuration.api.service,
+      this._configuration.api.resources.requestAccessToken,
+      {
+        appId: this._configuration.appId,
+        secretPass: this._configuration.secretPass
+      }
     );
 
-    return this._parseTokenApiResponse(apiResponse);
+    return this._parseTokenApiResponse(Request.dispatch());
   }
 
   /**
