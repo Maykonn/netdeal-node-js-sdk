@@ -16,26 +16,26 @@ class Configuration {
    */
   constructor(appId, secretPass) {
     /**
-     * Your App ID (provided by Netdeal)
-     *
-     * @type {string}
-     */
-    this._appId = appId;
-
-    /**
-     * Your Secret Pass (provided by Netdeal)
-     *
-     * @type {string}
-     */
-    this._secretPass = secretPass;
-
-    /**
      * API Configuration
      *
      * @type {{scheme: string, endpoint: string, appId: string, secretPass: string}}
      * @private
      */
     this._api = APIConfiguration;
+
+    /**
+     * Your App ID (provided by Netdeal)
+     *
+     * @type {string}
+     */
+    this._api.appId = appId;
+
+    /**
+     * Your Secret Pass (provided by Netdeal)
+     *
+     * @type {string}
+     */
+    this._api.secretPass = secretPass;
   }
 
   /**
@@ -44,7 +44,7 @@ class Configuration {
    * @return {string}
    */
   get appId() {
-    return this._appId;
+    return this._api.appId;
   }
 
   /**
@@ -53,7 +53,7 @@ class Configuration {
    * @param {string} value
    */
   set appId(value) {
-    this._appId = value;
+    this._api.appId = value;
   }
 
   /**
@@ -62,7 +62,7 @@ class Configuration {
    * @return {string}
    */
   get secretPass() {
-    return this._secretPass;
+    return this._api.secretPass;
   }
 
   /**
@@ -71,7 +71,20 @@ class Configuration {
    * @param {string} value
    */
   set secretPass(value) {
-    this._secretPass = value;
+    this._api.secretPass = value;
+  }
+
+  /**
+   * Retrieves the read only api configuration
+   *
+   * @return {{scheme: string, endpoint: string, resources: {requestAccessToken: string, sendEntity: string}}}
+   */
+  get api() {
+    return {
+      scheme: this._api.scheme,
+      endpoint: this._api.endpoint,
+      resources: this._api.resources
+    };
   }
 }
 
