@@ -4,6 +4,10 @@ const AccessTokenCache = require('./AccessTokenCache.js');
 class AccessToken {
 
   constructor() {
+    /**
+     * @type {string}
+     * @private
+     */
     this._token = '';
     this._cache = new AccessTokenCache();
   }
@@ -18,21 +22,10 @@ class AccessToken {
     this._token = this._cache.token;
 
     if (!this._token) {
-      this._token = this._requestToApi();
+      this._setToken(this._requestTokenToApi());
     }
 
     return this._token;
-  }
-
-  /**
-   * Set the token and create the token cache
-   *
-   * @param {string} value
-   */
-  set token(value) {
-    if (this._tokenIsValid(value)) {
-      this._cache.token = this._token = value;
-    }
   }
 
   /**
@@ -42,7 +35,7 @@ class AccessToken {
    * @see http://www.netdeal.com.br/documentation/#authentication
    * @return {string}
    */
-  _requestToApi() {
+  _requestTokenToApi() {
     const apiResponse = ApiRequestHelper.request(
       'http',
       'endpoint.com',
@@ -66,14 +59,29 @@ class AccessToken {
   }
 
   /**
+   * Set the token (on cache too)
+   *
+   * @param {string} token
+   */
+  _setToken(token) {
+    if (this._tokenIsValid(token)) {
+      this._token = this._cache.token = token;
+    }
+  }
+
+  /**
    * Validate the token
    *
-   * @private
-   * @param {string} token
+   * @param token
+   * @throws Error
    * @return {boolean}
    */
   _tokenIsValid(token) {
-    return (typeof token === 'string');
+    if (false === (typeof token === 'string' && token.length > 0)) {
+      throw new Error('Invalid token, given: ' + token);
+    }
+
+    return true;
   }
 
 }
