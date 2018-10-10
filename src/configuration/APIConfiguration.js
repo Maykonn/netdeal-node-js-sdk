@@ -1,7 +1,7 @@
 /**
  * API Configuration
  *
- * @type {{scheme: string, endpoint: string, appId: string, secretPass: string}}
+ * @type {{appId: string, secretPass: string, scheme: string, endpoint: string, resources: {requestAccessToken: string, sendEntity: string}}}
  */
 module.exports = {
 
