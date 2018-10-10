@@ -40,14 +40,20 @@ module.exports = {
      *
      * @see http://www.netdeal.com.br/documentation/#authentication
      */
-    requestAccessToken: '/open/request-token',
+    requestAccessToken: {
+      method: 'POST',
+      path: '/open/request-token'
+    },
 
     /**
      * Integrate your consumers and leads with Netdeal through this resource
      *
      * @see http://www.netdeal.com.br/documentation/#data-integration
      */
-    sendEntity: '/api/event/batch'
+    sendEntity: {
+      method: 'POST',
+      path: '/api/event/batch',
+    }
   }
 
 };
