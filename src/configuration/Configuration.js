@@ -14,7 +14,7 @@ class Configuration {
    * @param {string} appId Your App ID (provided by Netdeal)
    * @param {string} secretPass Your Secret Pass (provided by Netdeal)
    */
-  constructor(appId, secretPass) {
+  constructor(appId = '', secretPass = '') {
     /**
      * API Configuration
      *
