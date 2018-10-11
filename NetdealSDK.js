@@ -31,8 +31,9 @@ module.exports = {
    *
    * @param {EntitiesCollection} collection
    */
-  sendEntities: (collection) => {
-    const accessToken = (new AccessToken(Modules.Configuration)).token;
+  sendEntities: async (collection) => {
+    const accessToken = await (new AccessToken(Modules.Configuration)).getToken();
+    console.log('accessToken', accessToken);
   }
 
 };
