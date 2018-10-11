@@ -1,6 +1,8 @@
 const Configuration = require('./configuration/Configuration.js');
 const AccessTokenCache = require('./AccessTokenCache.js');
-const AccessTokenHttpRequest = require('./http/request/AccessTokenHttpRequest.js')
+const AccessTokenHttpRequest = require('./http/request/AccessTokenHttpRequest.js');
+const HttpRequestDispatcher = require('./http/request/HttpRequestDispatcher.js');
+const util = require('util');
 
 class AccessToken {
 
@@ -34,19 +36,20 @@ class AccessToken {
   }
 
   /**
-   * Retrieves an access token provided by Netdeal with a TTL of 30min.
-   * If not already cached, will request to a new to Netdeal API and create the cache.
+   * Retrieves an Access Token provided by Netdeal.
    *
    * @return {string} The token
    */
-  get token() {
-    this._token = this._cache.token;
+  async getToken() {
+    return (async () => {
+      this._token = this._cache.token;
 
-    if (!this._token) {
-      this._setToken(this._requestTokenToApi());
-    }
+      if (!this._token) {
+        this._setToken(await this._requestTokenToApi());
+      }
 
-    return this._token;
+      return this._token;
+    })();
   }
 
   /**
@@ -56,7 +59,7 @@ class AccessToken {
    * @see http://www.netdeal.com.br/documentation/#authentication
    * @return {string}
    */
-  _requestTokenToApi() {
+  async _requestTokenToApi() {
     const HttpRequest = new AccessTokenHttpRequest(
       this._configuration.api.service,
       this._configuration.api.resources.requestAccessToken,
@@ -66,19 +69,27 @@ class AccessToken {
       }
     );
 
-    return this._parseTokenApiResponse(HttpRequest.dispatch());
+    return this._parseTokenApiResponse(
+      await HttpRequestDispatcher.dispatch(HttpRequest)
+    );
   }
 
   /**
    * Extract the token value from the API http response
    *
    * @private
-   * @param {string} apiResponse The netdeal http response
+   * @param {{token: string}} response The netdeal http response
    * @see http://www.netdeal.com.br/documentation/#authentication
    * @return {string}
    */
-  _parseTokenApiResponse(apiResponse) {
-    return '';
+  _parseTokenApiResponse(response) {
+    let token = '';
+
+    if (typeof response.token === 'string') {
+      token = response.token;
+    }
+
+    return token;
   }
 
   /**
