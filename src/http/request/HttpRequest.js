@@ -1,45 +1,123 @@
-const http = require('http');
-
 class HttpRequest {
 
   /**
+   * HttpRequest
+   *
    * @param {{scheme: string, endpoint: string}} service
    * @param {{method: string, path: string}} resource
    * @param {{}} data
    * @param {{}} headers
    */
-  constructor(service, resource, data, headers) {
+  constructor(service, resource, data = {}, headers = {}) {
+    /**
+     * Netdeal service configuration
+     *
+     * @type {{scheme: string, endpoint: string}}
+     * @private
+     */
     this._service = service;
+
+    /**
+     * API resource configuration
+     *
+     * @type {{method: string, path: string}}
+     * @private
+     */
     this._resource = resource;
-    this._data = JSON.stringify(data);
+
+    /**
+     * Request data
+     *
+     * @type {{}}
+     * @private
+     */
+    this._data = data;
+
+    /**
+     * Request headers
+     *
+     * @type {{}}
+     * @private
+     */
     this._headers = headers;
 
     // configures the request content-type if not provided
     if (typeof this._headers['Content-Type'] === 'undefined') {
       this._headers['Content-Type'] = 'application/json';
     }
+    this._data = data;
   }
 
   /**
-   * Execute the http request
+   * Retrieves the Netdeal service configuration
+   *
+   * @return {{scheme: string, endpoint: string}}
    */
-  async dispatch() {
-    const request = {
-      host: this._service.endpoint,
-      ...this._resource, // method and path
-      ...this._headers
-    };
+  get service() {
+    return this._service;
+  }
 
-    http.request(request, (res) => {
-      let body = '';
-      res.setEncoding('utf8');
-      res.on('data', chunk => body += chunk);
-      res.on('end', () => {
-        let token = JSON.parse(body).token;
-        resolve(token);
-        this._updateNetdealTokenTTL(token);
-      });
-    });
+  /**
+   * Configures the Netdeal service configuration
+   *
+   * @param {{scheme: string, endpoint: string}} value
+   */
+  set service(value) {
+    this._service = value;
+  }
+
+  /**
+   * Retrieves the API resource configuration
+   *
+   * @return {{method: string, path: string}}
+   */
+  get resource() {
+    return this._resource;
+  }
+
+  /**
+   * Configures the API resource configuration
+   *
+   * @param {{method: string, path: string}} value
+   */
+  set resource(value) {
+    this._resource = value;
+  }
+
+  /**
+   * Retrieves the request data
+   *
+   * @return {{}}
+   */
+  get data() {
+    return this._data;
+  }
+
+  /**
+   * Configures the request data
+   *
+   * @param {{}} value
+   */
+  set data(value) {
+    this._data = value;
+  }
+
+  /**
+   * Retrieves the request headers
+   *
+   * @return {{}}
+   */
+  get headers() {
+    return this._headers;
+  }
+
+  /**
+   * Configures the request headers
+   *
+   * @param {{}} value
+   */
+  set headers(value) {
+    this._headers = value;
   }
 
 }
