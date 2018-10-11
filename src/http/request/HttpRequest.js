@@ -45,7 +45,6 @@ class HttpRequest {
     if (typeof this._headers['Content-Type'] === 'undefined') {
       this._headers['Content-Type'] = 'application/json';
     }
-    this._data = data;
   }
 
   /**
