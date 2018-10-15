@@ -25,8 +25,8 @@ class CachingMethodFactory {
    * @private
    */
   static _createRedisClient(CacheServerConfiguration) {
-    const redis = require('./Redis.js');
-    return new redis(CacheServerConfiguration);
+    const Redis = require('./Redis.js');
+    return new Redis(CacheServerConfiguration);
   }
 
 }
