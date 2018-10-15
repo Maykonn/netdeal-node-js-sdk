@@ -8,7 +8,7 @@ const APIConfiguration = require('./APIConfiguration.js');
 /**
  * SDK Cache Configuration
  *
- * @type {{method: string, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+ * @type {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
  */
 const CacheConfiguration = require('./CacheConfiguration.js');
 
@@ -49,7 +49,7 @@ class Configuration {
     /**
      * Cache configuration
      *
-     * @type {{method: string, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+     * @type {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
      * @private
      */
     this._cache = CacheConfiguration;
@@ -106,7 +106,7 @@ class Configuration {
   /**
    * Retrieves the cache configuration
    *
-   * @return {{method: string, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+   * @return {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
    */
   get cache() {
     return {...this._cache};
@@ -124,6 +124,42 @@ class Configuration {
     }
 
     throw new Error('Invalid caching method, given: ' + value);
+  }
+
+  /**
+   * Retrieves the cache server host
+   *
+   * @return {string}
+   */
+  get cacheServerHost() {
+    return this._cache.server.host;
+  }
+
+  /**
+   * Configures the cache server host
+   *
+   * @param {string} value
+   */
+  set cacheServerHost(value) {
+    this._cache.server.host = value;
+  }
+
+  /**
+   * Retrieves the cache server port
+   *
+   * @return {number}
+   */
+  get cacheServerPort() {
+    return this._cache.server.port;
+  }
+
+  /**
+   * Configures the cache server port
+   *
+   * @param {number} value
+   */
+  set cacheServerPort(value) {
+    this._cache.server.port = value;
   }
 
 }
