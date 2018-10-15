@@ -10,7 +10,7 @@ const supportedMethods = {
 /**
  * Cache configuration
  *
- * @type {{method: string, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+ * @type {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
  */
 module.exports = {
 
@@ -18,6 +18,15 @@ module.exports = {
    * Default caching method
    */
   method: supportedMethods.REDIS,
+
+  /**
+   * Cache server configuration, default configuration  for a Redis Server
+   */
+  server: {
+    host: 'localhost',
+    port: 6379
+  },
+
   /**
    * The access token cache key
    *
