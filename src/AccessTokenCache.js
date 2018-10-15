@@ -1,21 +1,48 @@
-const AccessToken = require('./AccessToken.js');
+const CachingMethodFactory = require('./infrastructure/cache/CachingMethodFactory.js');
 
 class AccessTokenCache {
 
   /**
-   * @return {string}
+   * CacheConfiguration
+   *
+   * @param {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}} Configuration
    */
-  get token() {
-    // verify if is cached already
-    return '';
+  constructor(Configuration) {
+    /**
+     * Cache configuration
+     *
+     * @type {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+     * @private
+     */
+    this._configuration = Configuration;
+
+    /**
+     * The cache client instance
+     *
+     * @type {AbstractRedisCache|AbstractCache}
+     * @private
+     */
+    this._cacheClient = CachingMethodFactory.createCachingMethodInstance(this._configuration)
   }
 
   /**
-   * @param {string} token
+   * Stores the token on cache with the configured TTL
+   *
+   * @param {string} value The token
    */
-  set token(token) {
-    // stores the value on cache
-    // $this->redis->setex(self::KEY, $this->getTTL(), trim($value));
+  set token(value) {
+    console.log('HERRE1.1');
+    return (async () => {
+      const ttl = await this._getTTL();
+      return this._token = await this._cacheClient.setex(this._configuration.accessTokenKey, ttl, value)
+    })();
+  }
+
+  /**
+   * @return {string}
+   */
+  async getToken() {
+    return await this._cacheClient.get(this._configuration.accessTokenKey);
   }
 
   /**
@@ -37,24 +64,28 @@ class AccessTokenCache {
    * @see https://redis.io/commands/ttl
    * @return int
    */
-  getTTL() {
-    /*$ttl = self::TTL;
+  async _getTTL() {
+    let ttl = this._configuration.accessTokenKeyTTL;
 
-        if($this->serverUp) {
-            $remainingTTL = $this->redis->ttl(self::KEY);
+    let remainingTTL = await this._cacheClient.ttl(this._configuration.accessTokenKey);
 
-            // -1 ou -2 deve setar o ttl padrao de self::TTL
-            // @see https://redis.io/commands/ttl
-            if($remainingTTL > 0) {
-                // exemplo:
-                // (29min default - 10min decorridos) = 19min de TTL ao inves de 29min
-                $ttl = $remainingTTL;
-            }
-        }
+    // -1 ou -2 deve setar o ttl padrao de self::TTL
+    // @see https://redis.io/commands/ttl
+    if (remainingTTL > 0) {
+      // exemplo:
+      // (29min default - 10min decorridos) = 19min de TTL ao inves de 29min
+      ttl = remainingTTL;
+    }
 
-        return $ttl;*/
+    return ttl;
   }
 
+  /**
+   * Close the cache connection
+   */
+  closeConnection() {
+    this._cacheClient.closeConnection();
+  }
 }
 
 module.exports = AccessTokenCache;

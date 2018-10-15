@@ -1,0 +1,22 @@
+{
+  "name": "netdeal-nodejs-sdk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "NetdealSDK.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://maykonn@bitbucket.org/maykonn/netdeal-node-js-sdk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/maykonn/netdeal-node-js-sdk#readme",
+  "dependencies": {
+    "redis": "^2.8.0"
+  }
+}

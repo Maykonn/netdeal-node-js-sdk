@@ -1,17 +1,21 @@
-const AbstractCache = require('./AbstractCache.js');
-const redis = require('redis');
+const AbstractRedisCache = require('./AbstractRedisCache.js');
+const {promisify} = require('util');
 
-class Redis extends AbstractCache {
+class Redis extends AbstractRedisCache {
 
-  /**
-   * Redis Client
-   *
-   * @param {{host: string, port: number}} Configuration
-   */
-  constructor(Configuration) {
-    super(Configuration);
+  async get(key) {
+    const get = promisify(this._client.get).bind(this._client);
+    return await get(key);
+  }
 
-    this._client = redis.createClient(...this._configuration);
+  async setex(key, ttl, value) {
+    const setex = promisify(this._client.setex).bind(this._client);
+    return await setex(key, ttl, value);
+  }
+
+  async ttl(key) {
+    const ttl = promisify(this._client.ttl).bind(this._client);
+    return await ttl(key);
   }
 
 }

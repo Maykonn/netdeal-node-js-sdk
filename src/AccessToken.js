@@ -31,7 +31,7 @@ class AccessToken {
      * @type {AccessTokenCache}
      * @private
      */
-    this._cache = new AccessTokenCache();
+    this._cache = new AccessTokenCache(Configuration.cache);
   }
 
   /**
@@ -41,12 +41,13 @@ class AccessToken {
    */
   async getToken() {
     return (async () => {
-      this._token = this._cache.token;
+      this._token = await this._cache.getToken();
 
       if (!this._token) {
-        this._setToken(await this._requestTokenToApi());
+        await this._setToken(await this._requestTokenToApi());
       }
 
+      this._cache.closeConnection();
       return this._token;
     })();
   }
@@ -96,9 +97,10 @@ class AccessToken {
    *
    * @param {string} token
    */
-  _setToken(token) {
+  async _setToken(token) {
     if (this._tokenIsValid(token)) {
-      this._token = this._cache.token = token;
+      let cachedToken = this._cache.token = token;
+      this._token = await cachedToken;
     }
   }
 

@@ -3,7 +3,7 @@ class AbstractCache {
   /**
    * AbstractCache
    *
-   * @param {{host: string, port: number}} Configuration
+   * @param {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}} Configuration
    */
   constructor(Configuration) {
     /**
@@ -19,7 +19,6 @@ class AbstractCache {
      * https://github.com/3rd-Eden/memcached
      *
      * @type {*}
-     * @private
      */
     this._client = undefined;
   }
