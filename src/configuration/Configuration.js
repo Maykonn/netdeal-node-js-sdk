@@ -6,6 +6,13 @@
 const APIConfiguration = require('./APIConfiguration.js');
 
 /**
+ * SDK Cache Configuration
+ *
+ * @type {{method: string, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+ */
+const CacheConfiguration = require('./CacheConfiguration.js');
+
+/**
  * SDK Configuration
  */
 class Configuration {
@@ -36,6 +43,14 @@ class Configuration {
      * @type {string}
      */
     this._api.secretPass = secretPass;
+
+    /**
+     * Cache configuration
+     *
+     * @type {{method: string, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+     * @private
+     */
+    this._cache = CacheConfiguration;
   }
 
   /**
@@ -85,6 +100,29 @@ class Configuration {
       resources: this._api.resources
     };
   }
+
+  /**
+   * Retrieves the cache configuration
+   *
+   * @return {{method: string, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+   */
+  get cache() {
+    return {...this._cache};
+  }
+
+  /**
+   * Configures the caching method
+   *
+   * @param {string} value
+   */
+  set cachingMethod(value) {
+    if (this._cache.supportedMethods.indexOf(value)) {
+      this._cache.method = value;
+    }
+
+    throw new Error('Invalid caching method, given: ' + value);
+  }
+
 }
 
 module.exports = Configuration;
