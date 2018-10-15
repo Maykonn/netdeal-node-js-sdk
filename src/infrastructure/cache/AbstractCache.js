@@ -10,7 +10,6 @@ class AbstractCache {
      * Cache configuration
      *
      * @type {{host: string, port: number}}
-     * @protected
      */
     this._configuration = Configuration;
 
