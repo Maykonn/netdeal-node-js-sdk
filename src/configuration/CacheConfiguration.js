@@ -4,7 +4,7 @@
  * @type {{REDIS: string}}
  */
 const supportedMethods = {
-  REDIS: 'redis'
+  REDIS: 'REDIS'
 };
 
 /**

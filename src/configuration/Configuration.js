@@ -18,6 +18,8 @@ const CacheConfiguration = require('./CacheConfiguration.js');
 class Configuration {
 
   /**
+   * SDK Configuration
+   *
    * @param {string} appId Your App ID (provided by Netdeal)
    * @param {string} secretPass Your Secret Pass (provided by Netdeal)
    */
@@ -116,8 +118,9 @@ class Configuration {
    * @param {string} value
    */
   set cachingMethod(value) {
-    if (this._cache.supportedMethods.indexOf(value)) {
+    if (value in this._cache.supportedMethods) {
       this._cache.method = value;
+      return;
     }
 
     throw new Error('Invalid caching method, given: ' + value);
