@@ -1,5 +1,6 @@
 const Configuration = require('./src/configuration/Configuration.js');
 const AccessToken = require('./src/AccessToken.js');
+const CachingMethodFactory = require('./src/infrastructure/cache/CachingMethodFactory.js');
 
 /**
  * The SDK exposed modules
@@ -12,6 +13,13 @@ const Modules = {
   Consumer: require('./src/entity/Consumer.js'),
   EntitiesCollection: require('./src/entity/EntitiesCollection.js')
 };
+
+/**
+ * Cache method abstraction
+ *
+ * @type {AbstractRedisCache|AbstractCache}
+ */
+global.CacheClient = CachingMethodFactory.createCachingMethodInstance(Modules.Configuration.cache);
 
 /**
  * Netdeal Node.js SDK
@@ -34,6 +42,8 @@ module.exports = {
   sendEntities: async (collection) => {
     const accessToken = await (new AccessToken(Modules.Configuration)).getToken();
     console.log('accessToken', accessToken);
+
+    CacheClient.closeConnection();
   }
 
 };

@@ -44,10 +44,11 @@ class AccessToken {
       this._token = await this._cache.getToken();
 
       if (!this._token) {
-        await this._setToken(await this._requestTokenToApi());
+        await this._setToken(
+          await this._requestTokenToApi()
+        );
       }
 
-      this._cache.closeConnection();
       return this._token;
     })();
   }
@@ -99,8 +100,8 @@ class AccessToken {
    */
   async _setToken(token) {
     if (this._tokenIsValid(token)) {
-      let cachedToken = this._cache.token = token;
-      this._token = await cachedToken;
+      this._token = token;
+      await this._cache.setToken(this._token);
     }
   }
 
