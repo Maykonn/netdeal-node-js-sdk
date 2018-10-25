@@ -2,12 +2,16 @@ class Entity {
 
   constructor() {
     /**
+     * Entity key
+     *
      * @type {string}
      * @private
      */
     this._key = '';
 
     /**
+     * Entity properties, notice that the ID is required
+     *
      * @type {{}}
      * @private
      */
@@ -15,6 +19,8 @@ class Entity {
   }
 
   /**
+   * Retrieves the Entity key
+   *
    * @return {string}
    */
   get key() {
@@ -31,6 +37,8 @@ class Entity {
   }
 
   /**
+   * Configures the Entity key
+   *
    * @param {string} value
    */
   set key(value) {
@@ -42,6 +50,8 @@ class Entity {
   }
 
   /**
+   * Retrieves the Entity properties
+   *
    * @return {{}}
    */
   get properties() {
