@@ -1,3 +1,5 @@
+const Entity = require('./Entity.js');
+
 class EntitiesCollection {
 
   constructor() {
@@ -17,10 +19,14 @@ class EntitiesCollection {
   /**
    * Add one Entities into the collection
    *
-   * @param {Array} entity An Entity instance
+   * @param {Entity} entity An Entity instance
    * @return {boolean}
    */
   add(entity) {
+    if (!this._isEntity(entity)) {
+      throw new Error('The entity param must be an Entity instance');
+    }
+
     this._list.push(entity);
     return true;
   }
@@ -28,11 +34,15 @@ class EntitiesCollection {
   /**
    * Add many Entities at same time, into the collection
    *
-   * @param {Entity} args Array of Entities
+   * @param {Array} args Array of Entities
    * @return {boolean}
    */
   addMany(args) {
     for (let entity of args) {
+      if (!this._isEntity(entity)) {
+        throw new Error('The entity param must be an Entity instance');
+      }
+
       this._list.push(entity);
     }
 
@@ -45,7 +55,23 @@ class EntitiesCollection {
    * @param entityToRemove
    */
   del(entityToRemove) {
+    if (!this._isEntity(entityToRemove)) {
+      throw new Error('The entityToRemove param must be an Entity instance');
+    }
+
     this._list = this._list.filter(entity => entity.id !== entityToRemove.id);
+  }
+
+
+  /**
+   * Verify if entity is an Instance Of Entity
+   *
+   * @param entity
+   * @return {boolean}
+   * @private
+   */
+  _isEntity(entity) {
+    return entity instanceof Entity;
   }
 
 }
