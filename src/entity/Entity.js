@@ -1,4 +1,5 @@
 class Entity {
+
   constructor() {
     /**
      * @type {string}
@@ -7,7 +8,7 @@ class Entity {
     this._key = '';
 
     /**
-     * @type {{id: string}}
+     * @type {{}}
      * @private
      */
     this._properties = {id: ''};
@@ -32,7 +33,7 @@ class Entity {
   }
 
   /**
-   * @return {{id: string}}
+   * @return {{}}
    */
   get properties() {
     return this._properties;
@@ -41,13 +42,13 @@ class Entity {
   /**
    * Set the entity properties
    *
-   * @param {{id: string}} properties
+   * @param {{}} properties
    */
   set properties(properties) {
     this._properties = properties;
 
     if (!this.isValid()) {
-      throw new Error('Entity is in a invalid state, key is required and property id at least, is required');
+      throw new Error('Entity is in a invalid state, the id property and entity key are required');
     }
   }
 
