@@ -22,6 +22,15 @@ class Entity {
   }
 
   /**
+   * Retrieves the Entity ID property
+   *
+   * @return {string}
+   */
+  get id() {
+    return this._properties.id;
+  }
+
+  /**
    * @param {string} value
    */
   set key(value) {
