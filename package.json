@@ -17,6 +17,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/maykonn/netdeal-node-js-sdk#readme",
   "dependencies": {
+    "global-process-queue-js": "^1.0.1",
     "redis": "^2.8.0"
   }
 }
