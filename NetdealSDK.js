@@ -71,7 +71,7 @@ module.exports = {
    */
   sendEntities: async (collection) => {
     const test1 = (async () => {
-      AccessTokenValue = await(new AccessToken(Modules.Configuration)).getToken();
+      AccessTokenValue = await (new AccessToken(Modules.Configuration)).getToken();
       console.log('1accessToken', AccessTokenValue);
       return '';
     });
@@ -80,4 +80,5 @@ module.exports = {
 
     SystemFlow.exec();
   }
+
 };
