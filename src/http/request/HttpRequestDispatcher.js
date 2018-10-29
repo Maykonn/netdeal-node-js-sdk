@@ -16,8 +16,7 @@ class HttpRequestDispatcher {
       data: Request.data,
       ...Request.resource // method and path
     }).catch((error) => {
-      // TODO: create an HttpError object
-      //return error;
+      throw new Error(error);
     }))();
   }
 

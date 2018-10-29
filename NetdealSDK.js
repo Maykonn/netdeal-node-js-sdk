@@ -71,7 +71,7 @@ module.exports = {
     const process = async () => {
       const AccessTokenValue = await (new AccessToken(Modules.Configuration)).getToken();
       const Integration = new DataIntegration(Modules.Configuration, AccessTokenValue);
-      Integration.sendEntities(Collection);
+      return await Integration.sendEntities(Collection);
     };
 
     SystemFlow.add(process, Process.AWAIT);

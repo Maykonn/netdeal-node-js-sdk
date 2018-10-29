@@ -40,8 +40,7 @@ class DataIntegration {
       {'X-AUTH-TOKEN': this._accessTokenValue}
     );
 
-    const response = await HttpRequestDispatcher.dispatch(HttpRequest);
-    console.log('response', response);
+    return await HttpRequestDispatcher.dispatch(HttpRequest);
   }
 
 }
