@@ -13,7 +13,7 @@ class EntitiesCollection {
    * @return {{}}
    */
   get list() {
-    return JSON.parse(JSON.stringify(this._list));
+    return this._list;
   }
 
   /**
