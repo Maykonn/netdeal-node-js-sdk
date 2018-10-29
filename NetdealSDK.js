@@ -2,6 +2,7 @@ const Process = require('global-process-queue-js');
 const Configuration = require('./src/configuration/Configuration.js');
 const AccessToken = require('./src/AccessToken.js');
 const CachingMethodFactory = require('./src/infrastructure/cache/CachingMethodFactory.js');
+const DataIntegration = require('./src/DataIntegration.js');
 
 /**
  * The SDK exposed modules
@@ -48,9 +49,6 @@ const finisher = () => {
  */
 const SystemFlow = new Process.Handler(initializer, finisher);
 
-
-let AccessTokenValue = '';
-
 /**
  * Netdeal Node.js SDK
  *
@@ -67,17 +65,16 @@ module.exports = {
   /**
    * Send a collection of Consumers or Leads entities to Netdeal
    *
-   * @param {EntitiesCollection} collection
+   * @param {EntitiesCollection} Collection
    */
-  sendEntities: async (collection) => {
-    const test1 = (async () => {
-      AccessTokenValue = await (new AccessToken(Modules.Configuration)).getToken();
-      console.log('1accessToken', AccessTokenValue);
-      return '';
-    });
+  sendEntities: async (Collection) => {
+    const process = async () => {
+      const AccessTokenValue = await (new AccessToken(Modules.Configuration)).getToken();
+      const Integration = new DataIntegration(Modules.Configuration, AccessTokenValue);
+      Integration.sendEntities(Collection);
+    };
 
-    SystemFlow.add(test1, Process.AWAIT);
-
+    SystemFlow.add(process, Process.AWAIT);
     SystemFlow.exec();
   }
 
