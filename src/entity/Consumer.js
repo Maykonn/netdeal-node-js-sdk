@@ -141,6 +141,20 @@ class Consumer extends Entity {
     this.addProperty('photo', value);
   }
 
+  /**
+   * Verify if the entity is valid
+   *
+   * @return {boolean}
+   */
+  isValid() {
+    return (
+      typeof this.key !== 'undefined' &&
+      typeof this.properties === 'object' &&
+      typeof this.properties.id !== 'undefined' &&
+      this.properties.id !== ''
+    );
+  }
+
 }
 
 module.exports = Consumer;

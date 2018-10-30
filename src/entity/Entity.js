@@ -10,12 +10,12 @@ class Entity {
     this._key = '';
 
     /**
-     * Entity properties, notice that the ID is required
+     * Entity properties
      *
      * @type {{}}
      * @protected
      */
-    this._properties = {id: ''};
+    this._properties = {};
   }
 
   /**
@@ -73,7 +73,7 @@ class Entity {
    * @param {{}} properties
    */
   set properties(properties) {
-    for(const attr in properties) {
+    for (const attr in properties) {
       this._properties[attr] = properties[attr];
     }
 
@@ -86,7 +86,7 @@ class Entity {
    * Add a specific property
    *
    * @param {string} name
-   * @param {string|null} value
+   * @param {*} value
    */
   addProperty(name, value = null) {
     this._properties[name] = value;
@@ -100,9 +100,7 @@ class Entity {
   isValid() {
     return (
       typeof this._key !== 'undefined' &&
-      typeof this._properties === 'object' &&
-      typeof this._properties.id !== 'undefined' &&
-      this._properties.id !== ''
+      typeof this._properties === 'object'
     );
   }
 
