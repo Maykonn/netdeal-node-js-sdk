@@ -86,9 +86,9 @@ class Entity {
    * Add a specific property
    *
    * @param {string} name
-   * @param {string} value
+   * @param {string|null} value
    */
-  addProperty(name, value) {
+  addProperty(name, value = null) {
     this._properties[name] = value;
   }
 
