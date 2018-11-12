@@ -57,11 +57,7 @@ class EntitiesCollection {
    */
   addMany(args) {
     for (let entity of args) {
-      if (!this._isEntity(entity)) {
-        throw new Error('The entity param must be an Entity instance');
-      }
-
-      this._list.push(entity);
+      this.add(entity);
     }
 
     return true;
