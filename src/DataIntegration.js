@@ -29,9 +29,7 @@ class DataIntegration {
    * @return {string}
    */
   async sendEntities(Collection) {
-    const requestData = Collection.list.map(Entity => {
-      return {key: Entity.key, properties: Entity.properties};
-    });
+    const requestData = Collection.list.map(Entity => this._entityNeedsToBeIntegrated(Entity));
 
     const HttpRequest = new DataIntegrationHttpRequest(
       this._configuration.api.service,
@@ -41,6 +39,22 @@ class DataIntegration {
     );
 
     return await HttpRequestDispatcher.dispatch(HttpRequest);
+  }
+
+  /**
+   * Checks the needs of an Entity be integrated and assembles the
+   * json properties required by the Integration API, when necessary
+   *
+   * @param {Entity} Entity
+   * @return {{key: {}, properties: {}} | boolean}
+   * @private
+   */
+  _entityNeedsToBeIntegrated(Entity) {
+    if (false === this._configuration.cache.enabled || Entity.needsIntegration()) {
+      return {key: Entity.key, properties: Entity.properties};
+    }
+
+    return false;
   }
 
 }
