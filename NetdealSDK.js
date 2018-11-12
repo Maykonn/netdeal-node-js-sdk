@@ -3,6 +3,7 @@ const Configuration = require('./src/configuration/Configuration.js');
 const AccessToken = require('./src/AccessToken.js');
 const CachingMethodFactory = require('./src/infrastructure/cache/CachingMethodFactory.js');
 const DataIntegration = require('./src/DataIntegration.js');
+const EntitiesCollection = require('./src/entity/EntitiesCollection.js');
 
 /**
  * The SDK exposed modules
@@ -12,8 +13,7 @@ const DataIntegration = require('./src/DataIntegration.js');
 const Modules = {
   Configuration: new Configuration(),
   Lead: require('./src/entity/Lead.js'),
-  Consumer: require('./src/entity/Consumer.js'),
-  EntitiesCollection: require('./src/entity/EntitiesCollection.js')
+  Consumer: require('./src/entity/Consumer.js')
 };
 
 /**
@@ -63,18 +63,33 @@ module.exports = {
   ...Modules,
 
   /**
+   * Creates a new EntitiesCollection instance with the required configuration
+   *
+   * @return {EntitiesCollection}
+   */
+  createEntitiesCollection: () => {
+    return new EntitiesCollection(Modules.Configuration);
+  },
+
+  /**
    * Send a collection of Consumers or Leads entities to Netdeal
    *
    * @param {EntitiesCollection} Collection
+   * @return {Promise<void>}
    */
-  sendEntities: async (Collection) => {
-    const process = async () => {
+  integrate: async (Collection) => {
+    /**
+     * Sends the Collection items to Netdeal
+     *
+     * @return {Promise<*>}
+     */
+    const dataIntegration = async () => {
       const AccessTokenValue = await (new AccessToken(Modules.Configuration)).getToken();
       const Integration = new DataIntegration(Modules.Configuration, AccessTokenValue);
       return await Integration.sendEntities(Collection);
     };
 
-    SystemFlow.add(process, Process.AWAIT);
+    SystemFlow.add(dataIntegration, Process.AWAIT);
     SystemFlow.exec();
   }
 
