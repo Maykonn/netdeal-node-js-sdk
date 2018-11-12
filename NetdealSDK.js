@@ -89,7 +89,17 @@ module.exports = {
       return await Integration.sendEntities(Collection);
     };
 
+    /**
+     * Caches the Collection into cache storage
+     *
+     * @return {Promise<void>}
+     */
+    const dataCaching = async () => {
+
+    };
+
     SystemFlow.add(dataIntegration, Process.AWAIT);
+    SystemFlow.add(dataCaching, Process.ASYNC);
     SystemFlow.exec();
   }
 

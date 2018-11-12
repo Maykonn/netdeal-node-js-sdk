@@ -119,6 +119,21 @@ class Entity {
     );
   }
 
+  /**
+   * Verify if the Entity needs to be sent to Netdeal
+   * Verification is made comparing the hashes of the entity and of the cache
+   *
+   * @return {boolean}
+   */
+  needsIntegration() {
+    if (this._systemCacheIsEnabled) {
+
+    }
+
+    // if the cache is disabled, always needs integration
+    return true;
+  }
+
 }
 
 module.exports = Entity;
