@@ -3,13 +3,13 @@ class AccessTokenCache {
   /**
    * CacheConfiguration
    *
-   * @param {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}} Configuration
+   * @param {{method: string, enabled: boolean, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}} Configuration
    */
   constructor(Configuration) {
     /**
      * Cache configuration
      *
-     * @type {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+     * @type {{method: string, enabled: boolean, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
      * @private
      */
     this._configuration = Configuration;
@@ -29,16 +29,18 @@ class AccessTokenCache {
    * @param {string} value The token
    */
   async setToken(value) {
-    this._token = value;
-    const ttl = await this._getTTL();
-    await this._cacheClient.setex(this._configuration.accessTokenKey, ttl, value);
+    if (this._configuration.enabled) {
+      this._token = value;
+      const ttl = await this._getTTL();
+      await this._cacheClient.setex(this._configuration.accessTokenKey, ttl, value);
+    }
   }
 
   /**
    * @return {string}
    */
   async getToken() {
-    return await this._cacheClient.get(this._configuration.accessTokenKey);
+    return (this._configuration.enabled ? await this._cacheClient.get(this._configuration.accessTokenKey) : '');
   }
 
   /**
