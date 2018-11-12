@@ -59,6 +59,8 @@ class EntitiesCollection {
       throw new Error('The entity param must be an Entity instance');
     }
 
+    entity.systemCacheIsEnabled = this._configuration.cache.enabled;
+
     this._list.push(entity);
     return true;
   }
