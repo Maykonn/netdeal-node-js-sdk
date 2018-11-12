@@ -35,6 +35,20 @@ class EntitiesCollection {
   }
 
   /**
+   * Add many Entities at same time, into the collection
+   *
+   * @param {Array} args Array of Entities
+   * @return {boolean}
+   */
+  addMany(args) {
+    for (let entity of args) {
+      this.add(entity);
+    }
+
+    return true;
+  }
+
+  /**
    * Add one Entities into the collection
    *
    * @param {Entity} entity An Entity instance
@@ -46,20 +60,6 @@ class EntitiesCollection {
     }
 
     this._list.push(entity);
-    return true;
-  }
-
-  /**
-   * Add many Entities at same time, into the collection
-   *
-   * @param {Array} args Array of Entities
-   * @return {boolean}
-   */
-  addMany(args) {
-    for (let entity of args) {
-      this.add(entity);
-    }
-
     return true;
   }
 
