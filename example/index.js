@@ -81,11 +81,11 @@ Lead2.properties = {
 };
 
 // The entities collections that will be synchronized with Netdeal
-const collection = new Netdeal.EntitiesCollection();
+const collection = Netdeal.createEntitiesCollection();
 collection.add(User1);
 collection.addMany([User2, User3]);
 collection.del(User1);
 collection.addMany([Lead1, Lead2]);
 
 // Integrating entities with Netdeal
-Netdeal.sendEntities(collection);
+Netdeal.integrate(collection);
