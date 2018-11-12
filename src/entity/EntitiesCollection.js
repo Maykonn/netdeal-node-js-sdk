@@ -1,8 +1,26 @@
+const Configuration = require('../configuration/Configuration.js');
 const Entity = require('./Entity.js');
 
 class EntitiesCollection {
 
-  constructor() {
+  /**
+   * @param {Configuration} Configuration
+   */
+  constructor(Configuration) {
+    /**
+     * SDK Configuration
+     *
+     * @type {Configuration}
+     * @private
+     */
+    this._configuration = Configuration;
+
+    /**
+     * The collection items list
+     *
+     * @type {Array}
+     * @private
+     */
     this._list = [];
   }
 
