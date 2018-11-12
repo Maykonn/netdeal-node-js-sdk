@@ -8,7 +8,7 @@ const APIConfiguration = require('./APIConfiguration.js');
 /**
  * SDK Cache Configuration
  *
- * @type {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+ * @type {{method: string, enabled: boolean, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
  */
 const CacheConfiguration = require('./CacheConfiguration.js');
 
@@ -49,7 +49,7 @@ class Configuration {
     /**
      * Cache configuration
      *
-     * @type {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+     * @type {{method: string, enabled: boolean, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
      * @private
      */
     this._cache = CacheConfiguration;
@@ -106,7 +106,7 @@ class Configuration {
   /**
    * Retrieves the cache configuration
    *
-   * @return {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+   * @return {{method: string, enabled: boolean, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
    */
   get cache() {
     return {...this._cache};
@@ -162,6 +162,12 @@ class Configuration {
     this._cache.server.port = value;
   }
 
+  /**
+   * Disables the cache system
+   */
+  disableTheCache() {
+    this._cache.enabled = false;
+  }
 }
 
 module.exports = Configuration;

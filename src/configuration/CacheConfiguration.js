@@ -10,7 +10,7 @@ const supportedMethods = {
 /**
  * Cache configuration
  *
- * @type {{method: string, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
+ * @type {{method: string, enabled: boolean, server: {host: string, port: number}, accessTokenKey: string, accessTokenKeyTTL: number, supportedMethods: {REDIS: string}}}
  */
 module.exports = {
 
