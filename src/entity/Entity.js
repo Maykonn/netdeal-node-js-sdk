@@ -16,6 +16,14 @@ class Entity {
      * @protected
      */
     this._properties = {};
+
+    /**
+     * A flag regarding system cache status
+     *
+     * @type {boolean}
+     * @private
+     */
+    this._systemCacheIsEnabled = true;
   }
 
   /**
@@ -80,6 +88,13 @@ class Entity {
     if (!this.isValid()) {
       throw new Error('Entity is in a invalid state, the id property and entity key are required');
     }
+  }
+
+  /**
+   * Enable/Disable the Entities cache system
+   */
+  set systemCacheIsEnabled(value) {
+    this._systemCacheIsEnabled = value;
   }
 
   /**
