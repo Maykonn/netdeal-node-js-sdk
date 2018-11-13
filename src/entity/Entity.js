@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 class Entity {
 
   constructor() {
@@ -98,6 +100,20 @@ class Entity {
   }
 
   /**
+   * Retrieves the Entity's cache key (requires an id)
+   *
+   * @return {string}
+   * @throws {Error}
+   */
+  get cacheKey() {
+    if (!this._idIsValid()) {
+      throw new Error('An ID is required to get the entity cache key, given:\n' + JSON.stringify(this) + '\n');
+    }
+
+    return this.key + ':' + this.id;
+  }
+
+  /**
    * Add a specific property
    *
    * @param {string} name
@@ -105,6 +121,25 @@ class Entity {
    */
   addProperty(name, value = null) {
     this._properties[name] = (value);
+  }
+
+  /**
+   * Verify if the Entity needs to be sent to Netdeal
+   * Verification is made comparing the hashes of the entity and of the cache
+   *
+   * @return {boolean}
+   */
+  needsIntegration() {
+    let needsIntegration = true;
+
+    // if the cache is disabled integration is necessary
+    if (this._systemCacheIsEnabled) {
+      const hash = crypto.createHash('sha1').update(JSON.stringify(this)).digest('hex');
+      const cachedHash = global.CacheClient.hget(this.cacheKey, 'hash');
+      needsIntegration = hash !== cachedHash;
+    }
+
+    return needsIntegration;
   }
 
   /**
@@ -120,18 +155,12 @@ class Entity {
   }
 
   /**
-   * Verify if the Entity needs to be sent to Netdeal
-   * Verification is made comparing the hashes of the entity and of the cache
+   * Verify if the entity have an ID
    *
    * @return {boolean}
    */
-  needsIntegration() {
-    if (this._systemCacheIsEnabled) {
-
-    }
-
-    // if the cache is disabled, always needs integration
-    return true;
+  _idIsValid() {
+    return typeof this.properties.id !== 'undefined' && this.properties.id !== '';
   }
 
 }
