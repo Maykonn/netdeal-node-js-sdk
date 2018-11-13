@@ -2,8 +2,9 @@ const Process = require('global-process-queue-js');
 const Configuration = require('./src/configuration/Configuration.js');
 const AccessToken = require('./src/AccessToken.js');
 const CachingMethodFactory = require('./src/infrastructure/cache/CachingMethodFactory.js');
-const DataIntegration = require('./src/DataIntegration.js');
 const EntitiesCollection = require('./src/entity/EntitiesCollection.js');
+const DataIntegration = require('./src/DataIntegration.js');
+const DataCaching = require('./src/DataCaching.js');
 
 /**
  * The SDK exposed modules
@@ -74,10 +75,10 @@ module.exports = {
   /**
    * Send a collection of Consumers or Leads entities to Netdeal
    *
-   * @param {EntitiesCollection} Collection
+   * @param {EntitiesCollection} EntitiesCollection
    * @return {Promise<void>}
    */
-  integrate: async (Collection) => {
+  integrate: async (EntitiesCollection) => {
     /**
      * Sends the Collection items to Netdeal
      *
@@ -86,7 +87,7 @@ module.exports = {
     const dataIntegration = async () => {
       const AccessTokenValue = await (new AccessToken(Modules.Configuration)).getToken();
       const Integration = new DataIntegration(Modules.Configuration, AccessTokenValue);
-      return await Integration.sendEntities(Collection);
+      return await Integration.sendCollection(EntitiesCollection);
     };
 
     /**
@@ -95,7 +96,7 @@ module.exports = {
      * @return {Promise<void>}
      */
     const dataCaching = async () => {
-
+      return (new DataCaching).storeCollection(EntitiesCollection);
     };
 
     SystemFlow.add(dataIntegration, Process.AWAIT);

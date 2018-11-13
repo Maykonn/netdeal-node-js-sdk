@@ -5,9 +5,9 @@ class DataCache {
   }
 
   /**
-   *
+   * Stores a full collection into the cache system
    */
-  save(Entity) {
+  storeCollection(Collection) {
     // iterate over the entity properties and with redis hset fill each necessary field on hash
   }
 
