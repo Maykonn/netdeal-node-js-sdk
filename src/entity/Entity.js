@@ -63,7 +63,7 @@ class Entity {
    * @param {string} id
    */
   set id(id) {
-    this._properties.id = id;
+    this.addProperty('id', id);
   }
 
   /**
@@ -82,11 +82,11 @@ class Entity {
    */
   set properties(properties) {
     for (const attr in properties) {
-      this._properties[attr] = properties[attr];
+      this.addProperty(attr, properties[attr]);
     }
 
     if (!this.isValid()) {
-      throw new Error('Entity is in a invalid state, the id property and entity key are required');
+      throw new Error('Entity is in a invalid state, the id property and entity key are required, given:\n' + JSON.stringify(this) + '\n');
     }
   }
 
@@ -104,7 +104,7 @@ class Entity {
    * @param {*} value
    */
   addProperty(name, value = null) {
-    this._properties[name] = value;
+    this._properties[name] = (value);
   }
 
   /**
