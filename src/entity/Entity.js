@@ -123,6 +123,24 @@ class Entity {
   }
 
   /**
+   * Retrieves the data to be integrated with Netdeal
+   *
+   * @return {{key: string, properties: {}}}
+   */
+  get integrationData() {
+    return {key: this._key, properties: this._properties};
+  }
+
+  /**
+   * Retrieves the data to be integrated with Netdeal as string
+   *
+   * @return {string}
+   */
+  get integrationDataAsString() {
+    return JSON.stringify(this.integrationData);
+  }
+
+  /**
    * Add a specific property
    *
    * @param {string} name
