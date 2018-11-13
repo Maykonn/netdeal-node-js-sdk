@@ -82,7 +82,7 @@ class Lead extends Entity {
    */
   get cacheKey() {
     if (!this._consumerIdIsValid()) {
-      throw new Error('An consumerId is required to get the entity cache key, given:\n' + JSON.stringify(this) + '\n');
+      throw new Error('An consumer_id is required to get the entity cache key, given:\n' + JSON.stringify(this) + '\n');
     }
 
     return this.key + ':' + this.consumerId;
@@ -94,7 +94,7 @@ class Lead extends Entity {
    * @return {boolean}
    */
   _consumerIdIsValid() {
-    return typeof this.properties.consumerId !== 'undefined' && this.properties.consumerId !== '';
+    return typeof this.properties.consumer_id !== 'undefined' && this.properties.consumer_id !== '';
   }
 
 }
