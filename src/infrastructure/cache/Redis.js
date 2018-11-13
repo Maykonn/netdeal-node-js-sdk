@@ -18,6 +18,15 @@ class Redis extends AbstractRedisCache {
     return await ttl(key);
   }
 
+  async hset(key, field, value) {
+    const hset = promisify(this._client.hset).bind(this._client);
+    return await hset(key, field, value);
+  }
+
+  async hget(key, field, value) {
+    const hget = promisify(this._client.hget).bind(this._client);
+    return await hget(key, field, value);
+  }
 }
 
 module.exports = Redis;
