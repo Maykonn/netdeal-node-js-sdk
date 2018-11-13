@@ -23,9 +23,9 @@ class Redis extends AbstractRedisCache {
     return await hset(key, field, value);
   }
 
-  async hget(key, field, value) {
+  async hget(key, field) {
     const hget = promisify(this._client.hget).bind(this._client);
-    return await hget(key, field, value);
+    return await hget(key, field);
   }
 }
 
