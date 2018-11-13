@@ -51,7 +51,7 @@ class DataIntegration {
    */
   _createBodyIfNeedsToBeIntegrated(Entity) {
     if (false === this._configuration.cache.enabled || Entity.needsIntegration()) {
-      return {key: Entity.key, properties: Entity.properties};
+      return Entity.integrationData;
     }
 
     return false;
