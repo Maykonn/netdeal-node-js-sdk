@@ -91,7 +91,7 @@ module.exports = {
     };
 
     /**
-     * Caches the Collection into cache storage
+     * Stores the Collection into the cache storage
      *
      * @return {Promise<void>}
      */
