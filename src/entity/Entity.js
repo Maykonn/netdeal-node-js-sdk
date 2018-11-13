@@ -114,6 +114,15 @@ class Entity {
   }
 
   /**
+   * Retrieves a hash representing the current state of the Entity
+   *
+   * @return {string}
+   */
+  get hash() {
+    return crypto.createHash('sha1').update(JSON.stringify(this)).digest('hex');
+  }
+
+  /**
    * Add a specific property
    *
    * @param {string} name
@@ -134,9 +143,8 @@ class Entity {
 
     // if the cache is disabled integration is necessary
     if (this._systemCacheIsEnabled) {
-      const hash = crypto.createHash('sha1').update(JSON.stringify(this)).digest('hex');
       const cachedHash = global.CacheClient.hget(this.cacheKey, 'hash');
-      needsIntegration = hash !== cachedHash;
+      needsIntegration = this.hash !== cachedHash;
     }
 
     return needsIntegration;
