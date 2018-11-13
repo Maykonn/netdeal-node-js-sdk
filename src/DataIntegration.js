@@ -24,12 +24,12 @@ class DataIntegration {
   /**
    * Request a new Access Token to Netdeal
    *
-   * @param {EntitiesCollection} Collection
+   * @param {EntitiesCollection} EntitiesCollection
    * @see http://www.netdeal.com.br/documentation/#authentication
    * @return {string}
    */
-  async sendEntities(Collection) {
-    const requestData = Collection.list.map(Entity => this._createBodyIfNeedsToBeIntegrated(Entity));
+  async sendCollection(EntitiesCollection) {
+    const requestData = EntitiesCollection.list.map(Entity => this._createBodyIfNeedsToBeIntegrated(Entity));
 
     const HttpRequest = new DataIntegrationHttpRequest(
       this._configuration.api.service,
