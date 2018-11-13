@@ -6,15 +6,6 @@ class Lead extends Entity {
     super();
 
     this._key = 'lead';
-
-    /**
-     * Adding default properties to Consumer entity
-     *
-     * @see http://www.netdeal.com.br/documentation/#data-integration
-     */
-    this.addProperty('email');
-    this.addProperty('consumer_id');
-    this.addProperty('cluster');
   }
 
   /**
@@ -81,6 +72,29 @@ class Lead extends Entity {
    */
   set cluster(value) {
     this.addProperty('cluster', value);
+  }
+
+  /**
+   * Retrieves the Entity's cache key (requires an consumerId)
+   *
+   * @return {string}
+   * @throws {Error}
+   */
+  get cacheKey() {
+    if (!this._consumerIdIsValid()) {
+      throw new Error('An consumerId is required to get the entity cache key, given:\n' + JSON.stringify(this) + '\n');
+    }
+
+    return this.key + ':' + this.consumerId;
+  }
+
+  /**
+   * Verify if the entity have an consumerId
+   *
+   * @return {boolean}
+   */
+  _consumerIdIsValid() {
+    return typeof this.properties.consumerId !== 'undefined' && this.properties.consumerId !== '';
   }
 
 }
