@@ -30,6 +30,8 @@ class DataIntegration {
    */
   async sendEntitiesCollection(EntitiesCollection) {
     const requestData = EntitiesCollection.list.map(Entity => this._createBodyIfNeedsToBeIntegrated(Entity));
+    await Promise.all(requestData);
+    console.log('requestData', requestData);
 
     const HttpRequest = new DataIntegrationHttpRequest(
       this._configuration.api.service,
@@ -49,8 +51,8 @@ class DataIntegration {
    * @return {{key: {}, properties: {}} | boolean}
    * @private
    */
-  _createBodyIfNeedsToBeIntegrated(Entity) {
-    if (false === this._configuration.cache.enabled || Entity.needsIntegration()) {
+  async _createBodyIfNeedsToBeIntegrated(Entity) {
+    if (false === this._configuration.cache.enabled || await Entity.needsIntegration()) {
       return Entity.integrationData;
     }
 

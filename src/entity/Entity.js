@@ -156,14 +156,16 @@ class Entity {
    *
    * @return {boolean}
    */
-  needsIntegration() {
+  async needsIntegration() {
     let needsIntegration = true;
 
     // if the cache is disabled integration is necessary
     if (this._systemCacheIsEnabled) {
-      const cachedHash = global.CacheClient.hget(this.cacheKey, 'hash');
+      const cachedHash = await global.CacheClient.hget(this.cacheKey, 'hash');
       needsIntegration = this.hash !== cachedHash;
     }
+
+    console.log('needsIntegration', needsIntegration);
 
     return needsIntegration;
   }
