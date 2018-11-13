@@ -13,18 +13,6 @@ class Consumer extends Entity {
      * @private
      */
     this._key = 'consumer';
-
-    /**
-     * Adding default properties to Consumer entity
-     *
-     * @see http://www.netdeal.com.br/documentation/#data-integration
-     */
-    this.addProperty('name');
-    this.addProperty('email');
-    this.addProperty('identifier');
-    this.addProperty('cellphone');
-    this.addProperty('birthday');
-    this.addProperty('photo');
   }
 
   /**
