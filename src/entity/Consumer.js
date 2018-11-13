@@ -138,8 +138,7 @@ class Consumer extends Entity {
     return (
       typeof this.key !== 'undefined' &&
       typeof this.properties === 'object' &&
-      typeof this.properties.id !== 'undefined' &&
-      this.properties.id !== ''
+      super._idIsValid()
     );
   }
 
