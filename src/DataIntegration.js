@@ -28,7 +28,7 @@ class DataIntegration {
    * @see http://www.netdeal.com.br/documentation/#authentication
    * @return {string}
    */
-  async sendCollection(EntitiesCollection) {
+  async sendEntitiesCollection(EntitiesCollection) {
     const requestData = EntitiesCollection.list.map(Entity => this._createBodyIfNeedsToBeIntegrated(Entity));
 
     const HttpRequest = new DataIntegrationHttpRequest(

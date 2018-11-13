@@ -87,7 +87,7 @@ module.exports = {
     const dataIntegration = async () => {
       const AccessTokenValue = await (new AccessToken(Modules.Configuration)).getToken();
       const Integration = new DataIntegration(Modules.Configuration, AccessTokenValue);
-      return await Integration.sendCollection(EntitiesCollection);
+      return await Integration.sendEntitiesCollection(EntitiesCollection);
     };
 
     /**
@@ -96,7 +96,7 @@ module.exports = {
      * @return {Promise<void>}
      */
     const dataCaching = async () => {
-      return (new DataCaching).storeCollection(EntitiesCollection);
+      return (new DataCaching).storeEntitiesCollection(EntitiesCollection);
     };
 
     SystemFlow.add(dataIntegration, Process.AWAIT);
