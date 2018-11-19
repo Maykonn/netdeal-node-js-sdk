@@ -29,19 +29,27 @@ class DataIntegration {
    * @return {string}
    */
   async sendEntitiesCollection(EntitiesCollection) {
-    console.log('INTEGRATING THE COLLECTION');
-    const requestData = EntitiesCollection.list.map(Entity => this._createBodyIfNeedsToBeIntegrated(Entity));
-    await Promise.all(requestData);
-    //console.log('requestData', requestData);
+    let requestData = [];
+    for (let Entity of EntitiesCollection.list) {
+      const body = await this._createBodyIfNeedsToBeIntegrated(Entity);
+      if (body) {
+        requestData.push(body);
+      }
+    }
 
-    const HttpRequest = new DataIntegrationHttpRequest(
-      this._configuration.api.service,
-      this._configuration.api.resources.sendEntity,
-      requestData,
-      {'X-AUTH-TOKEN': this._accessTokenValue}
-    );
+    if(requestData.length) {
+      const HttpRequest = new DataIntegrationHttpRequest(
+        this._configuration.api.service,
+        this._configuration.api.resources.sendEntity,
+        requestData,
+        {'X-AUTH-TOKEN': this._accessTokenValue}
+      );
 
-    return await HttpRequestDispatcher.dispatch(HttpRequest);
+      return await HttpRequestDispatcher.dispatch(HttpRequest);
+    }
+
+    // Any entity needs integration because doesn't exists any modification
+    return true;
   }
 
   /**
@@ -53,7 +61,9 @@ class DataIntegration {
    * @private
    */
   async _createBodyIfNeedsToBeIntegrated(Entity) {
-    if (false === this._configuration.cache.enabled || await Entity.isModified()) {
+    const needsIntegration = await Entity.isModified();
+
+    if (false === this._configuration.cache.enabled || needsIntegration) {
       return Entity.integrationData;
     }
 

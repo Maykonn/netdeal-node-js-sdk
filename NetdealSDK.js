@@ -96,11 +96,12 @@ module.exports = {
      * @return {Promise<boolean>}
      */
     const dataCaching = async () => {
-      return (new DataCaching).storeEntitiesCollection(EntitiesCollection);
+      return await (new DataCaching).storeEntitiesCollection(EntitiesCollection);
     };
 
+    // will await the two processes below to close the redis connection
     SystemFlow.add(dataIntegration, Process.AWAIT);
-    SystemFlow.add(dataCaching, Process.ASYNC);
+    SystemFlow.add(dataCaching, Process.AWAIT);
     SystemFlow.exec();
   }
 

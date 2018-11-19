@@ -20,6 +20,7 @@ class EntitiesCollection {
      *
      * @type {Array}
      * @private
+     * @TODO MAX ITEMS 1000
      */
     this._list = [];
   }
