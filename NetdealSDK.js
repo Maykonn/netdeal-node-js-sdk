@@ -93,7 +93,7 @@ module.exports = {
     /**
      * Stores the Collection into the cache storage
      *
-     * @return {Promise<void>}
+     * @return {Promise<boolean>}
      */
     const dataCaching = async () => {
       return (new DataCaching).storeEntitiesCollection(EntitiesCollection);
