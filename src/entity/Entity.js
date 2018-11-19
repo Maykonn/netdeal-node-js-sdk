@@ -151,12 +151,12 @@ class Entity {
   }
 
   /**
-   * Verify if the Entity needs to be sent to Netdeal
+   * Verify if the Entity have some data modified
    * Verification is made comparing the hashes of the entity and of the cache
    *
    * @return {boolean}
    */
-  async needsIntegration() {
+  async isModified() {
     let needsIntegration = true;
 
     // if the cache is disabled integration is necessary
@@ -164,8 +164,6 @@ class Entity {
       const cachedHash = await global.CacheClient.hget(this.cacheKey, 'hash');
       needsIntegration = this.hash !== cachedHash;
     }
-
-    console.log('needsIntegration', needsIntegration);
 
     return needsIntegration;
   }
