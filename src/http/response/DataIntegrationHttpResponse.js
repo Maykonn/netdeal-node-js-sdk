@@ -1,6 +1,6 @@
-const HttpResponse = require('./HttpResponse.js');
+const HttpJsonResponse = require('./HttpJsonResponse.js');
 
-class DataIntegrationHttpResponse extends HttpResponse {
+class DataIntegrationHttpResponse extends HttpJsonResponse {
 }
 
 module.exports = DataIntegrationHttpResponse;
