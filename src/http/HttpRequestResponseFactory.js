@@ -2,14 +2,14 @@ const AccessTokenHttpResponse = require('./response/AccessTokenHttpResponse.js')
 const DataIntegrationHttpResponse = require('./response/DataIntegrationHttpResponse.js');
 
 /**
- * Current possible responses
+ * Maps the correct response to each possible request
  *
- * @type {{AccessTokenHttpResponse: AccessTokenHttpResponse, DataIntegrationHttpResponse: DataIntegrationHttpResponse}}
+ * @type {{AccessTokenHttpRequest: AccessTokenHttpResponse, DataIntegrationHttpResponse: DataIntegrationHttpResponse}}
  * @private
  */
-const ResponsesList = {
-  AccessTokenHttpResponse: AccessTokenHttpResponse,
-  DataIntegrationHttpResponse: DataIntegrationHttpResponse,
+const RequestsResponsesMapper = {
+  AccessTokenHttpRequest: require('./response/AccessTokenHttpResponse.js'),
+  DataIntegrationHttpRequest: require('./response/DataIntegrationHttpResponse.js'),
 };
 
 class HttpRequestResponseFactory {
@@ -17,11 +17,11 @@ class HttpRequestResponseFactory {
   /**
    * Create the appropriate HttpResponse instance
    *
-   * @param {HttpRequest} Request
+   * @param {HttpRequest} HttpRequest
    * @return {HttpResponse}
    */
-  static createHttpResponse(Request) {
-    return new ResponsesList[Request.constructor.name]();
+  static createHttpResponse(HttpRequest) {
+    return new RequestsResponsesMapper[HttpRequest.constructor.name]();
   }
 
 }
