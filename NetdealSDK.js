@@ -76,9 +76,11 @@ module.exports = {
    * Send a collection of Consumers or Leads entities to Netdeal
    *
    * @param {EntitiesCollection} EntitiesCollection
-   * @return {Promise<void>}
+   * @return {Promise<{}>}
    */
   integrate: async (EntitiesCollection) => {
+    let response = {};
+
     /**
      * Sends the Collection items to Netdeal
      *
@@ -87,7 +89,7 @@ module.exports = {
     const dataIntegration = async () => {
       const AccessTokenValue = await (new AccessToken(Modules.Configuration)).getToken();
       const Integration = new DataIntegration(Modules.Configuration, AccessTokenValue);
-      return await Integration.sendEntitiesCollection(EntitiesCollection);
+      response = Integration.sendEntitiesCollection(EntitiesCollection);
     };
 
     /**
@@ -96,13 +98,15 @@ module.exports = {
      * @return {Promise<boolean>}
      */
     const dataCaching = async () => {
-      return await (new DataCaching).storeEntitiesCollection(EntitiesCollection);
+      await (new DataCaching).storeEntitiesCollection(EntitiesCollection);
     };
 
     // will await the two processes below to close the redis connection
     SystemFlow.add(dataIntegration, Process.AWAIT);
     SystemFlow.add(dataCaching, Process.AWAIT);
-    SystemFlow.exec();
+    await SystemFlow.exec();
+
+    return await response;
   }
 
 };
