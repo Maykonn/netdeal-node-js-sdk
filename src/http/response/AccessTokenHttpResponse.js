@@ -1,6 +1,6 @@
-const HttpResponse = require('./HttpResponse.js');
+const HttpJsonResponse = require('./HttpJsonResponse.js');
 
-class AccessTokenHttpResponse extends HttpResponse {
+class AccessTokenHttpResponse extends HttpJsonResponse {
 }
 
 module.exports = AccessTokenHttpResponse;
