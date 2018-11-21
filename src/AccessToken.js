@@ -1,7 +1,7 @@
 const Configuration = require('./configuration/Configuration.js');
 const AccessTokenCache = require('./AccessTokenCache.js');
 const AccessTokenHttpRequest = require('./http/request/AccessTokenHttpRequest.js');
-const HttpRequestDispatcher = require('./http/request/HttpRequestDispatcher.js');
+const HttpRequestDispatcher = require('./http/HttpRequestDispatcher.js');
 
 class AccessToken {
 
