@@ -1,5 +1,5 @@
 const DataIntegrationHttpRequest = require('./http/request/DataIntegrationHttpRequest.js');
-const HttpRequestDispatcher = require('./http/request/HttpRequestDispatcher.js');
+const HttpRequestDispatcher = require('./http/HttpRequestDispatcher.js');
 
 class DataIntegration {
 
