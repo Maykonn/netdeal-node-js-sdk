@@ -1,5 +1,5 @@
 const http = require('http');
-const HttpRequest = require('./HttpRequest.js');
+const HttpRequest = require('./request/HttpRequest.js');
 
 class HttpRequestDispatcher {
   /**
