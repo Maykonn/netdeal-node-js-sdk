@@ -1,5 +1,6 @@
 const DataIntegrationHttpRequest = require('./http/request/DataIntegrationHttpRequest.js');
 const HttpRequestDispatcher = require('./http/HttpRequestDispatcher.js');
+const AlreadyIntegratedHttpResponse = require('./http/response/AlreadyIntegratedHttpResponse.js');
 
 class DataIntegration {
 
@@ -26,7 +27,7 @@ class DataIntegration {
    *
    * @param {EntitiesCollection} EntitiesCollection
    * @see http://www.netdeal.com.br/documentation/#authentication
-   * @return {string}
+   * @return {AlreadyIntegratedHttpResponse|DataIntegrationHttpResponse}
    */
   async sendEntitiesCollection(EntitiesCollection) {
     let requestData = [];
@@ -37,7 +38,7 @@ class DataIntegration {
       }
     }
 
-    if(requestData.length) {
+    if (requestData.length) {
       const HttpRequest = new DataIntegrationHttpRequest(
         this._configuration.api.service,
         this._configuration.api.resources.sendEntity,
@@ -45,11 +46,11 @@ class DataIntegration {
         {'X-AUTH-TOKEN': this._accessTokenValue}
       );
 
-      return await HttpRequestDispatcher.dispatch(HttpRequest);
+      return (await HttpRequestDispatcher.dispatch(HttpRequest)).dataResponse;
     }
 
     // Any entity needs integration because doesn't exists any modification
-    return true;
+    return (new AlreadyIntegratedHttpResponse()).dataResponse;
   }
 
   /**
