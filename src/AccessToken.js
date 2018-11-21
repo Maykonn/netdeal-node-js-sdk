@@ -79,15 +79,15 @@ class AccessToken {
    * Extract the token value from the API http response
    *
    * @private
-   * @param {{token: string}} response The netdeal http response
+   * @param {AccessTokenHttpResponse} HttpResponse the netdeal http response
    * @see http://www.netdeal.com.br/documentation/#authentication
    * @return {string}
    */
-  _parseTokenApiResponse(response) {
+  _parseTokenApiResponse(HttpResponse) {
     let token = '';
 
-    if (typeof response.token === 'string') {
-      token = response.token;
+    if (typeof HttpResponse.token === 'string') {
+      token = HttpResponse.token;
     }
 
     return token;
