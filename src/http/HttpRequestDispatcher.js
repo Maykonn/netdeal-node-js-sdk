@@ -1,23 +1,26 @@
 const http = require('http');
 const HttpRequest = require('./request/HttpRequest.js');
+const HttpRequestResponseFactory = require('./HttpRequestResponseFactory.js');
 
 class HttpRequestDispatcher {
   /**
    * Execute a http request and awaits the response
    *
    * @param {HttpRequest} Request
-   * @return {Promise<*>}
+   * @return {AccessTokenHttpResponse|DataIntegrationHttpResponse}
    */
-  static dispatch(Request) {
-    // TODO: create an HttpResponse object
-    return (async () => await this._executeHttpRequest({
+  static async dispatch(Request) {
+    const requestParams = {
       host: Request.service.endpoint,
       headers: Request.headers,
       data: Request.data,
       ...Request.resource // method and path
-    }).catch((error) => {
-      throw new Error(error);
-    }))();
+    };
+
+    const HttpResponse = HttpRequestResponseFactory.createHttpResponse(Request);
+    HttpResponse.body = await this._executeHttpRequest(requestParams);
+
+    return HttpResponse;
   }
 
   /**
@@ -48,7 +51,7 @@ class HttpRequestDispatcher {
         response.setEncoding('utf8');
         response.on('data', chunk => body += chunk);
         response.on('end', () => {
-          resolve((body ? JSON.parse(body) : body));
+          resolve(body);
         });
       });
 
