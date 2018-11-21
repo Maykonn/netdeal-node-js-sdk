@@ -2,10 +2,9 @@ class HttpResponse {
 
   /**
    * HttpResponse
-   * @param body
    */
-  constructor(body) {
-    this.body = body;
+  constructor() {
+    this._body = null;
   }
 
   get body() {
