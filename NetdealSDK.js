@@ -89,7 +89,7 @@ module.exports = {
     const dataIntegration = async () => {
       const AccessTokenValue = await (new AccessToken(Modules.Configuration)).getToken();
       const Integration = new DataIntegration(Modules.Configuration, AccessTokenValue);
-      response = Integration.sendEntitiesCollection(EntitiesCollection);
+      response = await Integration.sendEntitiesCollection(EntitiesCollection);
     };
 
     /**
