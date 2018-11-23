@@ -20,9 +20,9 @@ module.exports = {
   method: supportedMethods.REDIS,
 
   /**
-   * Enables/Disables the cache system, true as default
+   * Enables/Disables the cache system, false as default
    */
-  enabled: true,
+  enabled: false,
 
   /**
    * Cache server configuration, default configuration for a Redis Server
