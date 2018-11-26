@@ -163,6 +163,13 @@ class Configuration {
   }
 
   /**
+   * Enables the cache system
+   */
+  enableTheCache() {
+    this._cache.enabled = true;
+  }
+
+  /**
    * Disables the cache system
    */
   disableTheCache() {

@@ -44,7 +44,7 @@ module.exports = {
     Modules.Configuration.cachingMethod = method;
     Modules.Configuration.cacheServerHost = host;
     Modules.Configuration.cacheServerPort = port;
-    Modules.Configuration.cache.enabled = true;
+    Modules.Configuration.enableTheCache();
 
     /**
      * Caching method abstraction
