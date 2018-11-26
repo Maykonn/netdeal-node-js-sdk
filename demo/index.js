@@ -88,4 +88,8 @@ collection.del(User1);
 collection.addMany([Lead1, Lead2]);
 
 // Integrating entities with Netdeal
-Netdeal.integrate(collection);
+(async () => {
+  await Netdeal.start();
+  await Netdeal.integrate(collection);
+  await Netdeal.quit();
+})();
