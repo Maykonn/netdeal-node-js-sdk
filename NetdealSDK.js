@@ -17,12 +17,25 @@ const Modules = {
   Consumer: require('./src/entity/Consumer.js'),
 };
 
+const initializer = () => {
+  /**
+   * Access Token is required by all API requests
+   *
+   * @type {string}
+   */
+  global.AccessToken = '';
+};
+
+const finisher = () => {
+  global.CacheClient.closeConnection();
+};
+
 /**
  * SDK Processes Handler
  *
  * @type {GlobalProcess}
  */
-const SystemFlow = new Process.Handler();
+const SystemFlow = new Process.Handler(initializer, finisher);
 
 /**
  * Netdeal Node.js SDK
@@ -52,13 +65,6 @@ module.exports = {
      * @type {AbstractRedisCache|AbstractCache}
      */
     global.CacheClient = CachingMethodFactory.createCachingMethodInstance(Modules.Configuration.cache);
-
-    /**
-     * Access Token is required by all API requests
-     *
-     * @type {string}
-     */
-    global.AccessToken = '';
   },
 
   quit: () => {
