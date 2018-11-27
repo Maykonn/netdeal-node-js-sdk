@@ -25,7 +25,7 @@ class Entity {
      * @type {boolean}
      * @private
      */
-    this._systemCacheIsEnabled = true;
+    this._systemCacheIsEnabled = false;
   }
 
   /**

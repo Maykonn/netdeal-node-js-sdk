@@ -4,10 +4,10 @@ class AlreadyIntegratedHttpResponse extends HttpJsonResponse {
 
   constructor() {
     super();
-  }
 
-  get dataResponse() {
-    return {message: "Already Sent"};
+    this.body = JSON.stringify([{
+      data: "The collection was not sent (the whole collection was already integrated)"
+    }]);
   }
 
 }

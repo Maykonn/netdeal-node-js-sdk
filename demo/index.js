@@ -7,7 +7,7 @@ const Netdeal = require('../NetdealSDK.js');
 // Configuring SDK
 Netdeal.Configuration.appId = appId;
 Netdeal.Configuration.secretPass = secretPass;
-// Netdeal.Configuration.disableTheCache();
+Netdeal.Configuration.enableTheCache();
 
 // Creating entities to be integrated with Netdeal
 const User1 = new Netdeal.Consumer();
@@ -89,7 +89,5 @@ collection.addMany([Lead1, Lead2]);
 
 // Integrating entities with Netdeal
 (async () => {
-  await Netdeal.start();
   await Netdeal.integrate(collection);
-  await Netdeal.quit();
 })();

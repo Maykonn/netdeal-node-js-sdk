@@ -1,3 +1,5 @@
+const CachingMethodFactory = require('../infrastructure/cache/CachingMethodFactory.js');
+
 /**
  * Netdeal API Configuration
  *
@@ -165,8 +167,20 @@ class Configuration {
   /**
    * Enables the cache system
    */
-  enableTheCache() {
-    this._cache.enabled = true;
+  enableTheCache(method = this.cache.supportedMethods.REDIS, host = 'localhost', port = 6379) {
+    if (!global.CacheClient) {
+      this.cachingMethod = method;
+      this.cacheServerHost = host;
+      this.cacheServerPort = port;
+      this._cache.enabled = true;
+
+      /**
+       * Caching method abstraction
+       *
+       * @type {AbstractRedisCache|AbstractCache}
+       */
+      global.CacheClient = CachingMethodFactory.createCachingMethodInstance(this.cache);
+    }
   }
 
   /**

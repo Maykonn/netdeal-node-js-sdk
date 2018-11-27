@@ -4,7 +4,6 @@ const AccessToken = require('./src/AccessToken.js');
 const EntitiesCollection = require('./src/entity/EntitiesCollection.js');
 const DataIntegration = require('./src/DataIntegration.js');
 const DataCaching = require('./src/DataCaching.js');
-const CachingMethodFactory = require('./src/infrastructure/cache/CachingMethodFactory.js');
 
 /**
  * The SDK exposed modules
@@ -27,7 +26,9 @@ const initializer = () => {
 };
 
 const finisher = () => {
-  global.CacheClient.closeConnection();
+  if (global.CacheClient) {
+    global.CacheClient.closeConnection();
+  }
 };
 
 /**
@@ -49,27 +50,6 @@ module.exports = {
    * The SDK exposed modules
    */
   ...Modules,
-
-  /**
-   * Enables the entities cache
-   */
-  start: (method = Modules.Configuration.cache.supportedMethods.REDIS, host = 'localhost', port = 6379) => {
-    Modules.Configuration.cachingMethod = method;
-    Modules.Configuration.cacheServerHost = host;
-    Modules.Configuration.cacheServerPort = port;
-    Modules.Configuration.enableTheCache();
-
-    /**
-     * Caching method abstraction
-     *
-     * @type {AbstractRedisCache|AbstractCache}
-     */
-    global.CacheClient = CachingMethodFactory.createCachingMethodInstance(Modules.Configuration.cache);
-  },
-
-  quit: () => {
-    global.CacheClient.closeConnection();
-  },
 
   /**
    * Creates a new EntitiesCollection instance with the required configuration
@@ -106,7 +86,7 @@ module.exports = {
      * @return {Promise<boolean>}
      */
     const dataCaching = async () => {
-      await (new DataCaching).storeEntitiesCollection(EntitiesCollection);
+      await (new DataCaching(Modules.Configuration)).storeEntitiesCollection(EntitiesCollection);
     };
 
     // will await the two processes below to close the redis connection

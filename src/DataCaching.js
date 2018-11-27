@@ -1,4 +1,14 @@
-class DataCache {
+class DataCaching {
+
+  constructor(Configuration) {
+    /**
+     * SDK Configuration
+     *
+     * @type {Configuration}
+     * @private
+     */
+    this._configuration = Configuration;
+  }
 
   /**
    * Stores a full collection into the cache system
@@ -6,9 +16,11 @@ class DataCache {
    * @param {EntitiesCollection} EntitiesCollection
    */
   async storeEntitiesCollection(EntitiesCollection) {
-    // iterate over each Entity and with redis hset fill each necessary entity field into the hash
-    for (let Entity of EntitiesCollection.list) {
-      await this.storeEntity(Entity);
+    if (this._configuration.cache.enabled) {
+      // iterate over each Entity and with redis hset fill each necessary entity field into the hash
+      for (let Entity of EntitiesCollection.list) {
+        await this.storeEntity(Entity);
+      }
     }
 
     return true;
@@ -34,4 +46,4 @@ class DataCache {
 
 }
 
-module.exports = DataCache;
+module.exports = DataCaching;

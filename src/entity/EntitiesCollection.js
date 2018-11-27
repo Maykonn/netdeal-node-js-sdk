@@ -23,6 +23,14 @@ class EntitiesCollection {
      * @TODO MAX ITEMS 1000
      */
     this._list = [];
+
+    /**
+     * A flag regarding system cache status
+     *
+     * @type {boolean}
+     * @private
+     */
+    this._systemCacheIsEnabled = Configuration.cache.enabled;
   }
 
   /**

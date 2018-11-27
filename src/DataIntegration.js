@@ -46,11 +46,11 @@ class DataIntegration {
         {'X-AUTH-TOKEN': this._accessTokenValue}
       );
 
-      return (await HttpRequestDispatcher.dispatch(HttpRequest)).dataResponse;
+      return (await HttpRequestDispatcher.dispatch(HttpRequest));
     }
 
     // Any entity needs integration because doesn't exists any modification
-    return (new AlreadyIntegratedHttpResponse()).dataResponse;
+    return (new AlreadyIntegratedHttpResponse());
   }
 
   /**
