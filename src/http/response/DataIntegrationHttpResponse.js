@@ -10,10 +10,11 @@ class DataIntegrationHttpResponse extends HttpJsonResponse {
     return super.body;
   }
 
-  set body(jsonBody) {
-    super.body = JSON.stringify([{
-      'data': jsonBody
-    }]);
+  set body(netdealIntegrationApiResponse) {
+    super.body = JSON.stringify({
+      message: 'Netdeal integration API response',
+      data: netdealIntegrationApiResponse
+    });
   }
 
 }

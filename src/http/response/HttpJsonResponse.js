@@ -11,7 +11,7 @@ class HttpJsonResponse extends HttpResponse {
   }
 
   set body(jsonBody) {
-    super.body = (jsonBody ? JSON.parse(jsonBody) : null);
+    super.body = (jsonBody ? JSON.parse(jsonBody) : []);
   }
 
 }
