@@ -2,7 +2,7 @@
   "name": "netdeal-node-js-sdk",
   "homepage": "https://github.com/Maykonn/netdeal-node-js-sdk#readme",
   "description": "Backend Node.js SDK that allows you to integrate your Users with Netdeal Services - http://www.netdeal.com.br",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Maykonn Welington Candido <maykonn@outlook.com> (https://github.com/Maykonn)",
   "keywords": [
     "netdeal",
