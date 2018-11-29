@@ -7,7 +7,11 @@ const Netdeal = require('../NetdealSDK.js');
 // Configuring SDK
 Netdeal.Configuration.appId = appId;
 Netdeal.Configuration.secretPass = secretPass;
-Netdeal.Configuration.enableTheCache();
+Netdeal.Configuration.enableTheCache(
+  Netdeal.Configuration.cache.supportedMethods.REDIS,
+  process.env.REDIS_HOST,
+  process.env.REDIS_PORT
+)
 
 // Creating entities to be integrated with Netdeal
 const User1 = new Netdeal.Consumer();
