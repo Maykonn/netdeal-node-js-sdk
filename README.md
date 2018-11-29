@@ -24,7 +24,7 @@ Netdeal.Configuration.secretPass = 'secret-pass-value';
 ```
 
 This SDK provides an integration cache layer that saves a lot of network requests for you.
-[Learn more about the Cache Layer](https://github.com/Maykonn/netdeal-node-js-sdk#about-the-cache): 
+[Learn more about the Cache Layer](https://github.com/Maykonn/netdeal-node-js-sdk#how-the-cache-layer-works): 
 
 ```JS
 Netdeal.Configuration.enableTheCache(
