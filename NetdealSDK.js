@@ -32,13 +32,6 @@ const finisher = () => {
 };
 
 /**
- * SDK Processes Handler
- *
- * @type {GlobalProcess}
- */
-const SystemFlow = new Process.Handler(initializer, finisher);
-
-/**
  * Netdeal Node.js SDK
  *
  * @author Maykonn Welington Candido <maykonn@outlook.com> (http://github.com/maykonn)
@@ -67,7 +60,19 @@ module.exports = {
    * @return {Promise<{}>}
    */
   integrate: async (EntitiesCollection) => {
+    /**
+     * Process Response
+     *
+     * @type {{}}
+     */
     let response = {};
+
+    /**
+     * Process Handler
+     *
+     * @type {GlobalProcess}
+     */
+    const ProcessFlow = new Process.Handler(initializer, finisher);
 
     /**
      * Sends the Collection items to Netdeal
@@ -90,9 +95,9 @@ module.exports = {
     };
 
     // will await the two processes below to close the redis connection
-    SystemFlow.add(dataIntegration, Process.AWAIT);
-    SystemFlow.add(dataCaching, Process.AWAIT);
-    await SystemFlow.exec();
+    ProcessFlow.add(dataIntegration, Process.AWAIT);
+    ProcessFlow.add(dataCaching, Process.AWAIT);
+    await ProcessFlow.exec();
 
     return await response;
   }
