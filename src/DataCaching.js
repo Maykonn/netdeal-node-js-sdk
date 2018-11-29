@@ -38,7 +38,7 @@ class DataCaching {
         integrationData: Entity.integrationDataAsString
       };
 
-      global.CacheClient.hmset(Entity.cacheKey, dataToCache);
+      global.NetdealSDKCacheClient.hmset(Entity.cacheKey, dataToCache);
     }
 
     return true;

@@ -20,7 +20,7 @@ class AccessTokenCache {
      * @type {AbstractRedisCache|AbstractCache}
      * @private
      */
-    this._cacheClient = global.CacheClient; // global, see the NetdealSDK.js file
+    this._cacheClient = global.NetdealSDKCacheClient; // global, see the NetdealSDK.js file
   }
 
   /**

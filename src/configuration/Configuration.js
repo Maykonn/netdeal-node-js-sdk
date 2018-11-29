@@ -168,7 +168,7 @@ class Configuration {
    * Enables the cache system
    */
   enableTheCache(method = this.cache.supportedMethods.REDIS, host = 'localhost', port = 6379) {
-    if (!global.CacheClient) {
+    if (!global.NetdealSDKCacheClient) {
       this.cachingMethod = method;
       this.cacheServerHost = host;
       this.cacheServerPort = port;
@@ -179,7 +179,7 @@ class Configuration {
        *
        * @type {AbstractRedisCache|AbstractCache}
        */
-      global.CacheClient = CachingMethodFactory.createCachingMethodInstance(this.cache);
+      global.NetdealSDKCacheClient = CachingMethodFactory.createCachingMethodInstance(this.cache);
     }
   }
 
@@ -187,6 +187,11 @@ class Configuration {
    * Disables the cache system
    */
   disableTheCache() {
+    if (global.NetdealSDKCacheClient) {
+      global.NetdealSDKCacheClient.closeConnection();
+      global.NetdealSDKCacheClient = undefined;
+    }
+
     this._cache.enabled = false;
   }
 }

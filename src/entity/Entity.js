@@ -161,7 +161,7 @@ class Entity {
 
     // if the cache is disabled integration is necessary
     if (this._systemCacheIsEnabled) {
-      const cachedHash = await global.CacheClient.hget(this.cacheKey, 'hash');
+      const cachedHash = await global.NetdealSDKCacheClient.hget(this.cacheKey, 'hash');
       isModified = this.hash !== cachedHash;
     }
 

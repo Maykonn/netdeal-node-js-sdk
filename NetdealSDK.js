@@ -4,6 +4,7 @@ const AccessToken = require('./src/AccessToken.js');
 const EntitiesCollection = require('./src/entity/EntitiesCollection.js');
 const DataIntegration = require('./src/DataIntegration.js');
 const DataCaching = require('./src/DataCaching.js');
+const CachingMethodFactory = require('./src/infrastructure/cache/CachingMethodFactory.js');
 
 /**
  * The SDK exposed modules
@@ -25,11 +26,11 @@ const initializer = () => {
   global.AccessToken = '';
 };
 
-const finisher = () => {
-  if (global.CacheClient) {
-    global.CacheClient.closeConnection();
+/*const finisher = () => {
+  if (Modules.Configuration.cache.enabled) {
+    Modules.Configuration.disableTheCache();
   }
-};
+};*/
 
 /**
  * Netdeal Node.js SDK
@@ -72,7 +73,7 @@ module.exports = {
      *
      * @type {GlobalProcess}
      */
-    const ProcessFlow = new Process.Handler(initializer, finisher);
+    const ProcessFlow = new Process.Handler(initializer);
 
     /**
      * Sends the Collection items to Netdeal
