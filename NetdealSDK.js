@@ -84,9 +84,6 @@ module.exports = {
     ProcessFlow.add(dataCaching, Process.AWAIT);
     await ProcessFlow.exec();
 
-    console.log('response');
-    console.log(response);
-
     return response;
   }
 
