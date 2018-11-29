@@ -93,6 +93,8 @@ collection.addMany([Lead1, Lead2]);
 
 // Integrating entities with Netdeal
 (async () => {
-  await Netdeal.integrate(collection);
+  const response = await Netdeal.integrate(collection);
+  console.log('response');
+  console.log(response);
   Netdeal.Configuration.disableTheCache();
 })();

@@ -1,21 +1,30 @@
 {
-  "name": "netdeal-nodejs-sdk",
-  "version": "1.0.0",
+  "name": "netdeal-node-js-sdk",
+  "homepage": "https://github.com/Maykonn/netdeal-node-js-sdk#readme",
   "description": "",
+  "version": "1.0.0",
+  "author": "Maykonn Welington Candido <maykonn@outlook.com> (https://github.com/Maykonn)",
+  "keywords": [
+    "netdeal",
+    "netdeal-integration",
+    "netdeal-documentation",
+    "integration",
+    "documentation",
+    "sdk",
+    "javascript",
+    "node.js",
+    "nodejs",
+    "node-js"
+  ],
   "main": "NetdealSDK.js",
-  "directories": {
-    "example": "example"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://maykonn@bitbucket.org/maykonn/netdeal-node-js-sdk.git"
+    "url": "git+https://github.com/Maykonn/netdeal-node-js-sdk"
   },
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/maykonn/netdeal-node-js-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/Maykonn/netdeal-node-js-sdk/issues"
+  },
+  "license": "MIT",
   "dependencies": {
     "global-process-queue-js": "^1.0.4",
     "redis": "^2.8.0"
