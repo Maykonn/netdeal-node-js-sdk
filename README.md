@@ -7,7 +7,7 @@ That was the main reason why javascript was chosen to write this SDK.
 ## Installation
 
 ```
-npm install netdeal-node-js-sdk
+npm i netdeal-node-js-sdk
 ```
 
 ## How to use
