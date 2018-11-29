@@ -4,7 +4,6 @@ const AccessToken = require('./src/AccessToken.js');
 const EntitiesCollection = require('./src/entity/EntitiesCollection.js');
 const DataIntegration = require('./src/DataIntegration.js');
 const DataCaching = require('./src/DataCaching.js');
-const CachingMethodFactory = require('./src/infrastructure/cache/CachingMethodFactory.js');
 
 /**
  * The SDK exposed modules
@@ -16,21 +15,6 @@ const Modules = {
   Lead: require('./src/entity/Lead.js'),
   Consumer: require('./src/entity/Consumer.js'),
 };
-
-const initializer = () => {
-  /**
-   * Access Token is required by all API requests
-   *
-   * @type {string}
-   */
-  global.AccessToken = '';
-};
-
-/*const finisher = () => {
-  if (Modules.Configuration.cache.enabled) {
-    Modules.Configuration.disableTheCache();
-  }
-};*/
 
 /**
  * Netdeal Node.js SDK
@@ -73,7 +57,7 @@ module.exports = {
      *
      * @type {GlobalProcess}
      */
-    const ProcessFlow = new Process.Handler(initializer);
+    const ProcessFlow = new Process.Handler();
 
     /**
      * Sends the Collection items to Netdeal
@@ -100,7 +84,10 @@ module.exports = {
     ProcessFlow.add(dataCaching, Process.AWAIT);
     await ProcessFlow.exec();
 
-    return await response;
+    console.log('response');
+    console.log(response);
+
+    return response;
   }
 
 };
