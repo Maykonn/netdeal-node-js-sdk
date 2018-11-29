@@ -125,3 +125,6 @@ You can contribute to this project cloning this repository and in your clone, yo
 name related to the new functionality which you'll create.  
 When you finish your work, you just need to create a pull request which will be revised, merged to master branch (if the code 
 doesn't break the project) and published as a new release.
+
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=N72BSYR3XE3LS&item_name=Through+your+donation,+I+can+keep+an+active+support+and+improvements+to+this+tool.+Or+may+you+want+to+thanks+me+%3A%29&currency_code=BRL&source=url
+" target="_blank"><img alt="Donate" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" /></a>
