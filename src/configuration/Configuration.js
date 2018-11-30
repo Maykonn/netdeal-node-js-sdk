@@ -55,6 +55,15 @@ class Configuration {
      * @private
      */
     this._cache = CacheConfiguration;
+
+    /**
+     * Configures the max length to an Entity Collection
+     *
+     * @see http://www.netdeal.com.br/documentation/#data-integration
+     * @type {number}
+     * @private
+     */
+    this._ENTITIES_COLLECTION_MAX_LENGTH = 1000;
   }
 
   /**
@@ -162,6 +171,15 @@ class Configuration {
    */
   set cacheServerPort(value) {
     this._cache.server.port = value;
+  }
+
+  /**
+   * Retrieves the max length to an Entity Collection
+   *
+   * @return {number}
+   */
+  get ENTITIES_COLLECTION_MAX_LENGTH() {
+    return this._ENTITIES_COLLECTION_MAX_LENGTH;
   }
 
   /**

@@ -20,7 +20,6 @@ class EntitiesCollection {
      *
      * @type {Array}
      * @private
-     * @TODO MAX ITEMS 1000
      */
     this._list = [];
 
@@ -64,6 +63,11 @@ class EntitiesCollection {
    * @return {boolean}
    */
   add(entity) {
+    const maxLength = this._configuration.ENTITIES_COLLECTION_MAX_LENGTH;
+    if (this._list.length > maxLength) {
+      throw new Error('Collection max length reached: ' + maxLength);
+    }
+
     if (!this._isEntity(entity)) {
       throw new Error('The entity param must be an Entity instance');
     }
