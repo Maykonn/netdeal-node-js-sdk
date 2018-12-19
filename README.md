@@ -1,7 +1,7 @@
 # Netdeal Node.js SDK
 
 Backend Node.js SDK that allows you to integrate your Users with [Netdeal Services](http://www.netdeal.com.br/). 
-You can use this SDK with Serverless Functions too (AWS Lambda for example). 
+You can use this SDK in [Serverless Architectures](https://serverless.com/) too ([AWS Lambda](https://aws.amazon.com/lambda/), [Azure Functions](https://azure.microsoft.com/en-us/services/functions/), [Google Functions](https://cloud.google.com/functions/), etc). 
 That was the main reason why javascript was chosen to write this SDK.
 
 ## Installation
