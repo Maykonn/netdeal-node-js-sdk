@@ -45,6 +45,7 @@ class Entity {
   set key(value) {
     if (typeof value === 'string') {
       this._key = value.toLowerCase();
+      return;
     }
 
     throw new Error('The entity key must be a lowercase string');
